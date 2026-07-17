@@ -1,0 +1,224 @@
+{
+  "info": {
+    "name": "Ziina API",
+    "description": "Ziina payment platform REST API (UAE). Create/retrieve payment intents, refunds, transfers, webhooks, and account. Base URL https://api-v2.ziina.com/api. Auth: HTTP bearer (JWT) via OAuth 2.0 access token. Amounts are in the currency minor unit (fils for AED); minimum 2 AED. Derived from Ziina's published OpenAPI documents on 2026-07-17.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{ziina_token}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api-v2.ziina.com/api", "type": "string" },
+    { "key": "ziina_token", "value": "", "type": "string" },
+    { "key": "payment_intent_id", "value": "", "type": "string" },
+    { "key": "transfer_id", "value": "", "type": "string" },
+    { "key": "refund_id", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Payment Intents",
+      "item": [
+        {
+          "name": "Create Payment Intent",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{ziina_token}}", "description": "OAuth 2.0 access token with write_payment_intents scope" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 1000,\n  \"currency_code\": \"AED\",\n  \"message\": \"Order #1234\",\n  \"success_url\": \"https://example.com/success?id={PAYMENT_INTENT_ID}\",\n  \"cancel_url\": \"https://example.com/cancel\",\n  \"failure_url\": \"https://example.com/failure\",\n  \"test\": true,\n  \"allow_tips\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payment_intent",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "payment_intent" ]
+            },
+            "description": "Create a payment intent. amount is in the currency minor unit (fils for AED); 1000 = 10 AED. Minimum 2 AED. Response includes redirect_url (hosted page) and embedded_url (widget)."
+          }
+        },
+        {
+          "name": "Get Payment Intent",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{ziina_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payment_intent/{{payment_intent_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "payment_intent", "{{payment_intent_id}}" ]
+            },
+            "description": "Retrieve a payment intent by id. status enum: requires_payment_instrument, requires_user_action, pending, completed, failed, canceled."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Refunds",
+      "item": [
+        {
+          "name": "Initiate Refund",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{ziina_token}}", "description": "Requires write_refunds scope" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"11111111-1111-1111-1111-111111111111\",\n  \"payment_intent_id\": \"{{payment_intent_id}}\",\n  \"amount\": 1000,\n  \"currency_code\": \"AED\",\n  \"test\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/refund",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "refund" ]
+            },
+            "description": "Initiate a full or partial refund against a payment intent. id is a client-generated UUID (idempotency key)."
+          }
+        },
+        {
+          "name": "Get Refund",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{ziina_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/refund/{{refund_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "refund", "{{refund_id}}" ]
+            },
+            "description": "Retrieve a refund by id. status enum: pending, completed, failed."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transfers",
+      "item": [
+        {
+          "name": "Initiate Transfer",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{ziina_token}}", "description": "Requires write_transfers scope" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation_id\": \"22222222-2222-2222-2222-222222222222\",\n  \"to_ziinames\": [\"ziina_user\"],\n  \"amount\": 5000,\n  \"currency_code\": \"AED\",\n  \"message\": \"Payout\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/transfer",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "transfer" ]
+            },
+            "description": "Transfer money to Ziina accounts addressed by to_account_ids or to_ziinames. operation_id is a client-generated UUID for idempotent retries."
+          }
+        },
+        {
+          "name": "Get Transfer",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{ziina_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/transfer/{{transfer_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "transfer", "{{transfer_id}}" ]
+            },
+            "description": "Retrieve a transfer by id. Caller must be the payer or the receiver."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Create Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{ziina_token}}", "description": "Requires write_webhooks scope" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://example.com/webhooks/ziina\",\n  \"secret\": \"your-shared-hmac-secret\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhook",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "webhook" ]
+            },
+            "description": "Register a webhook endpoint for payment events. Optional secret enables HMAC signature verification of delivered callbacks."
+          }
+        },
+        {
+          "name": "Delete Webhook",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{ziina_token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhook",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "webhook" ]
+            },
+            "description": "Delete the registered webhook endpoint for the authenticated account."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Account",
+      "item": [
+        {
+          "name": "Get Account",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{ziina_token}}", "description": "Requires read_account scope" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/account",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "account" ]
+            },
+            "description": "Retrieve the authenticated account profile: account_id, account_type (personal/business), status, ziiname, display_name, profile_picture_url."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Get Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/status",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "status" ]
+            },
+            "description": "Service health check."
+          }
+        }
+      ]
+    }
+  ]
+}

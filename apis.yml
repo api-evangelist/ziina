@@ -1,0 +1,152 @@
+aid: ziina
+url: https://raw.githubusercontent.com/api-evangelist/ziina/refs/heads/main/apis.yml
+name: Ziina
+kind: company
+description: Ziina is a Dubai-based (UAE) fintech offering an instant money and payments
+  platform for consumers and businesses. Its REST API lets developers create hosted
+  and embedded payment intents, issue refunds, run peer transfers between Ziina accounts,
+  and register webhooks. Amounts are in the currency's minor unit (fils for AED),
+  auth is HTTP bearer (JWT) via OAuth 2.0 scopes, and settlement is in AED with multi-currency
+  acceptance.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payments
+- Fintech
+- UAE
+- MENA
+- Money Transfer
+- Wallet
+created: '2026-07-17'
+modified: '2026-07-17'
+specificationVersion: '0.19'
+apis:
+- aid: ziina:ziina-payment-intent-api
+  name: Ziina Payment Intent API
+  tags:
+  - Payments
+  - Checkout
+  - Payment Intent
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ziina.com/api-reference/payment-intent
+  baseURL: https://api-v2.ziina.com/api
+  properties:
+  - url: https://docs.ziina.com/api-reference/payment-intent
+    type: Documentation
+  - url: https://docs.ziina.com/api-reference/payment-intent/create
+    type: APIReference
+  - url: openapi/ziina-openapi.yml
+    type: OpenAPI
+  - url: collections/ziina.postman_collection.json
+    type: PostmanCollection
+  description: Create a payment intent (POST /payment_intent) and retrieve it (GET
+    /payment_intent/{id}). Returns a hosted redirect_url and an embedded_url for card,
+    Apple Pay, and Google Pay checkout. Amount is in the currency minor unit (fils
+    for AED, minimum 2 AED); pass test=true for sandbox payments with test cards.
+- aid: ziina:ziina-refund-api
+  name: Ziina Refund API
+  tags:
+  - Payments
+  - Refunds
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ziina.com/api-reference/refund/create
+  baseURL: https://api-v2.ziina.com/api
+  properties:
+  - url: https://docs.ziina.com/api-reference/refund/create
+    type: Documentation
+  - url: https://docs.ziina.com/api-reference/refund/get
+    type: APIReference
+  - url: openapi/ziina-openapi.yml
+    type: OpenAPI
+  - url: collections/ziina.postman_collection.json
+    type: PostmanCollection
+  description: Initiate a full or partial refund against a payment intent (POST /refund)
+    and retrieve refund status (GET /refund/{id}). Requires the write_refunds scope.
+- aid: ziina:ziina-transfer-api
+  name: Ziina Transfer API
+  tags:
+  - Payments
+  - Transfers
+  - Payouts
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ziina.com/api-reference/transfer/create
+  baseURL: https://api-v2.ziina.com/api
+  properties:
+  - url: https://docs.ziina.com/api-reference/transfer/create
+    type: Documentation
+  - url: https://docs.ziina.com/api-reference/transfer/get
+    type: APIReference
+  - url: openapi/ziina-openapi.yml
+    type: OpenAPI
+  - url: collections/ziina.postman_collection.json
+    type: PostmanCollection
+  description: Move money between Ziina accounts (POST /transfer) addressed by account
+    ids or ziinames, and retrieve a transfer (GET /transfer/{id}). Requires the write_transfers
+    scope and an idempotent operation_id.
+- aid: ziina:ziina-webhooks-api
+  name: Ziina Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ziina.com/api-reference/webhook
+  baseURL: https://api-v2.ziina.com/api
+  properties:
+  - url: https://docs.ziina.com/api-reference/webhook
+    type: Documentation
+  - url: https://docs.ziina.com/api-reference/webhook/create
+    type: APIReference
+  - url: openapi/ziina-openapi.yml
+    type: OpenAPI
+  - url: collections/ziina.postman_collection.json
+    type: PostmanCollection
+  description: Register (POST /webhook) or delete (DELETE /webhook) a webhook endpoint
+    that receives real-time payment event callbacks, optionally HMAC-signed with a
+    shared secret. HTTP callbacks over HTTPS, not a WebSocket stream.
+- aid: ziina:ziina-account-api
+  name: Ziina Account API
+  tags:
+  - Account
+  - Identity
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ziina.com/api-reference/account/get
+  baseURL: https://api-v2.ziina.com/api
+  properties:
+  - url: https://docs.ziina.com/api-reference/account/get
+    type: Documentation
+  - url: openapi/ziina-openapi.yml
+    type: OpenAPI
+  - url: collections/ziina.postman_collection.json
+    type: PostmanCollection
+  description: Retrieve the authenticated account (GET /account) - account_id, account_type
+    (personal/business), status, ziiname, display_name, and profile picture. Requires
+    the read_account scope.
+common:
+- type: AgenticAccess
+  url: agentic-access/ziina-agentic-access.yml
+- type: TrustCenter
+  url: security/ziina-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/ziina-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/ziina-domain-security.yml
+- type: Authentication
+  url: authentication/ziina-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/ziina-co
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ziina
+- type: Website
+  url: https://ziina.com/
+- type: Documentation
+  url: https://docs.ziina.com
+- type: Plans
+  url: plans/ziina-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ziina-rate-limits.yml
+- type: FinOps
+  url: finops/ziina-finops.yml
+- url: https://ziina.com/blog
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

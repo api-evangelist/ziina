@@ -1,0 +1,70 @@
+aid: ziina
+name: Ziina
+review:
+  question: Does Ziina expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-17'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Ziina's only event-delivery mechanism is
+    outbound HTTP webhook callbacks (POST /webhook registers a URL; Ziina then
+    POSTs payment events to it, optionally HMAC-signed). Webhooks are
+    server-to-server HTTP callbacks, not a client-subscribed streaming channel,
+    and no Server-Sent Events (SSE) stream is documented either. Under current
+    API Evangelist scope this does not warrant an AsyncAPI streaming document.
+findings:
+  summary: |
+    Ziina does not publish a documented public WebSocket API. The Ziina platform
+    is a REST API served from https://api-v2.ziina.com/api using HTTP bearer
+    (JWT) authentication. All documented operations are request/response HTTPS
+    REST calls (payment intents, refunds, transfers, account, webhook
+    registration, status). Asynchronous payment status is delivered via outbound
+    HTTP webhooks to a merchant-registered URL, not via a ws:// or wss://
+    connection. No realtime, bidirectional, or streaming WebSocket endpoint is
+    documented in the API reference, OpenAPI specs, or developer guides.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api-v2.ziina.com/api
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound HTTP POST callbacks to a merchant-registered URL for payment events, optionally HMAC-signed. Not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Ziina's API reference, OpenAPI documents, or integration guides as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://api-v2.ziina.com/api/payment_intent
+    - GET    https://api-v2.ziina.com/api/payment_intent/{id}
+    - POST   https://api-v2.ziina.com/api/refund
+    - GET    https://api-v2.ziina.com/api/refund/{id}
+    - POST   https://api-v2.ziina.com/api/transfer
+    - GET    https://api-v2.ziina.com/api/transfer/{id}
+    - POST   https://api-v2.ziina.com/api/webhook
+    - DELETE https://api-v2.ziina.com/api/webhook
+    - GET    https://api-v2.ziina.com/api/account
+    - GET    https://api-v2.ziina.com/api/status
+sources:
+  - url: https://docs.ziina.com/api-reference/payment-service-openapi.json
+    type: OpenAPI
+    note: Fetched HTTP 200; OpenAPI 3.0.0, server https://api-v2.ziina.com/api, http bearer JWT security, REST paths only.
+  - url: https://docs.ziina.com/api-reference/account-manager-openapi.json
+    type: OpenAPI
+    note: Fetched HTTP 200; Account API OpenAPI 3.0.0, GET /account, http bearer JWT.
+  - url: https://docs.ziina.com/api-reference/webhook
+    type: Documentation
+    note: Webhooks are outbound HTTP callbacks registered via POST /webhook; not WebSocket.
+  - url: https://docs.ziina.com/getting-started
+    type: Documentation
+    note: Describes a REST API and OAuth 2.0 wallet integration; no streaming/WebSocket surface.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: false
+  reason: |
+    No WebSocket or streaming protocol surface exists. Event delivery is via
+    outbound HTTP webhooks only, which are modeled as a REST webhook-registration
+    operation in the OpenAPI document rather than as an AsyncAPI channel. No
+    AsyncAPI document was authored and no AsyncAPI pointer was added to apis.yml.

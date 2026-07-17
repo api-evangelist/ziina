@@ -1,0 +1,100 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Ziina
+providerId: ziina
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: true
+tags:
+- Payments
+- Fintech
+- UAE
+- MENA
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Ziina spend. Unlike metered infrastructure APIs, Ziina charges
+  no fee for API calls themselves - cost is a per-transaction acquiring fee on
+  collected payments (percentage + fixed AED, plus a surcharge on international
+  cards / non-AED currencies), with 5% UAE VAT applied to the fee. Transfers
+  between Ziina Business accounts are free. Spend therefore scales with payment
+  volume and payment mix (domestic vs international, AED vs FX), not with request
+  count.
+notes: >-
+  Fee percentages change; verify against https://ziina.com/fees during
+  reconciliation. Non-AED payments settle in AED at real-time FX, so FX movement
+  is an additional cost/variance dimension.
+sources:
+- https://ziina.com/fees
+- https://ziina.com/help-center/12781259-what-are-the-fees-to-use-ziina-business
+- https://docs.ziina.com/supported-currencies
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Ziina
+serviceCategory: Payments and Financial Services
+billingModel:
+  pricingCategory: Transaction-Based
+  billingFrequency: Per-Transaction
+  billingCurrency: AED
+  chargeCategories:
+  - Usage
+  - Tax
+  - Adjustment
+focusColumns:
+  ServiceName: Ziina Payments
+  ServiceCategory: Payments and Financial Services
+  ProviderName: Ziina
+  PublisherName: Ziina
+  InvoiceIssuerName: Ziina Payment LLC
+  BillingCurrency: AED
+  ChargeCategory: Usage
+  PricingCategory: Transaction-Based
+meters:
+- name: payment_transaction_fee
+  description: Percentage-plus-fixed acquiring fee on each collected payment intent.
+  unit: transaction
+  aggregation: sum
+  dimensions:
+  - account
+  - payment_method
+  - currency
+- name: international_surcharge
+  description: Additional 1.5% on international cards or non-AED currency payments.
+  unit: transaction
+  aggregation: sum
+  dimensions:
+  - account
+  - currency
+  - card_origin
+- name: vat
+  description: 5% UAE VAT applied to the Ziina fee (not to transaction volume).
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+- name: fx_conversion
+  description: Real-time conversion of non-AED payments to AED at settlement.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+  - currency
+principles:
+- name: Visibility
+  description: Track fees per payment method and per currency; separate the 1.5% international surcharge and VAT lines.
+- name: Allocation
+  description: Tag payment intents (via success/cancel URLs and operation_id) to map revenue and fees to products/teams.
+- name: Optimization
+  description: Prefer domestic AED card and Apple/Google Pay flows to avoid the international surcharge; use free Ziina-to-Ziina transfers for payouts where possible.
+- name: Accountability
+  description: Reconcile Ziina fee + VAT against gross payment volume monthly; monitor FX variance on non-AED settlement.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

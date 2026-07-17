@@ -1,0 +1,53 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Ziina
+providerId: ziina
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Fintech
+- UAE
+- MENA
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Ziina's public API documentation and OpenAPI specifications do not publish
+  specific numeric rate limits (no RPM/RPS/quota tables and no documented
+  Retry-After or rate-limit response headers). As a regulated payment API,
+  throttling and abuse protection should be assumed to exist server-side even
+  though thresholds are not disclosed. Idempotency is supported on write
+  operations (transfers and refunds carry a client-generated operation_id / id
+  so retries are safe).
+notes: >-
+  No numeric limits are reconciled in this artifact because none are documented.
+  Implement client-side backoff and reuse operation_id on retries. Confirm any
+  account-specific limits with Ziina support during integration.
+sources:
+- https://docs.ziina.com/api-reference/introduction
+- https://docs.ziina.com/api-reference/payment-service-openapi.json
+- https://docs.ziina.com/developers/custom-integration
+responseCodes:
+  throttled: 429
+  note: >-
+    429 is the conventional throttling status; Ziina does not document a specific
+    throttling response code or Retry-After header.
+limits:
+- name: Documented numeric limits
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No RPM/RPS/daily quota values are documented in Ziina's API reference or OpenAPI specs.
+policies:
+- name: Idempotency
+  description: >-
+    Transfers and refunds accept a client-generated operation_id / id (UUID);
+    reusing the same value on retries prevents duplicate money movement.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and treat 429/5xx as retryable.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,42 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/ziina-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+schemes:
+- name: bearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/ziina-openapi.yml
+  notes: >-
+    All Ziina API calls authenticate with an HTTP bearer token in the
+    Authorization header (Authorization: Bearer <token>). The token is a JWT
+    access token issued by Ziina's OAuth 2.0 authorization server.
+- name: oauth2
+  type: oauth2
+  flow: authorization_code
+  authorizationUrl: https://auth.ziina.com/oidc/auth
+  tokenUrl: https://auth.ziina.com/oidc/token
+  grantTypes:
+  - authorization_code
+  - refresh_token
+  scopes:
+    read_account: Read the connected account profile (GET /account).
+    write_payment_intents: Create payment intents and accept payments on the account's behalf.
+    write_refunds: Issue refunds against payment intents.
+    write_transfers: Initiate transfers between Ziina accounts.
+    write_webhooks: Register and delete webhook endpoints.
+    offline_access: Receive a refresh_token for long-lived access.
+  sources:
+  - https://docs.ziina.com/developers/oauth-2.0
+  - https://docs.ziina.com/business/oauth-2.0
+  notes: >-
+    Ziina uses an OIDC-based OAuth 2.0 flow (auth.ziina.com/oidc). Business
+    integration credentials (client_id, username, password) and allowed redirect
+    URIs are provisioned by contacting Ziina support. A personal access token
+    obtained on the Ziina business connect page carries all available scopes for
+    self-integration.

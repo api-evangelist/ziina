@@ -1,0 +1,128 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Ziina
+providerId: ziina
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: true
+tags:
+- Payments
+- Fintech
+- UAE
+- MENA
+- Plans
+description: >-
+  Ziina does not price API access itself; there is no per-call, seat, or
+  subscription fee to use the Ziina API. Revenue is transaction-based: Ziina
+  Business charges a percentage-plus-fixed fee per collected payment, with a
+  surcharge on international cards and non-AED currencies, plus 5% UAE VAT on the
+  fee (not on transaction volume). Sending money between Ziina Business accounts
+  is free. All amounts are in AED; non-AED payments are converted to AED at
+  settlement using real-time exchange rates.
+notes: >-
+  Fees below are as published on Ziina's fees / help-center pages and are subject
+  to change; confirm current rates at https://ziina.com/fees before relying on
+  them. VAT of 5% applies to the fee amount only.
+sources:
+- https://ziina.com/fees
+- https://ziina.com/help-center/12781259-what-are-the-fees-to-use-ziina-business
+- https://ziina.com/help-center/7880536-what-are-the-fees-associated-with-using-ziina-on-my-website
+- https://docs.ziina.com/supported-currencies
+plans:
+- id: ziina-business-acceptance
+  name: Ziina Business - Payment Acceptance
+  type: usage
+  description: >-
+    Per-transaction pricing for collecting payments via the API (payment
+    intents), Ziina Links, QR codes, NFC / Tap to Pay, and website checkout.
+  currency: AED
+  entries:
+  - label: Card / Apple Pay / Google Pay checkout (via API, links, website)
+    name: acceptance_standard
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: transaction
+    geo: AE
+    unit: 1
+    price: 2.9% + 1 AED per transaction (+ 5% VAT on the fee)
+    userMultiplied: false
+  - label: Ziina Links / QR / NFC / Tap to Pay (merchant-collected)
+    name: acceptance_merchant_tools
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: transaction
+    geo: AE
+    unit: 1
+    price: 2.6% + 1 AED per transaction (+ 5% VAT on the fee)
+    userMultiplied: false
+  - label: International card / non-AED currency surcharge
+    name: international_surcharge
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: transaction
+    geo: global
+    unit: 1
+    price: +1.5% on top of the standard fee
+    userMultiplied: false
+  - label: Minimum payment amount
+    name: minimum_amount
+    type: constraint
+    metric: amount
+    limit: 2
+    timeFrame: transaction
+    geo: AE
+    unit: 1
+    price: 2 AED minimum per payment intent
+    userMultiplied: false
+  elements:
+  - name: Payment Intent API
+  - name: Refund API
+  - name: Webhooks
+  - name: Hosted & Embedded Checkout
+- id: ziina-transfers
+  name: Ziina Transfers
+  type: usage
+  description: >-
+    Peer transfers between Ziina accounts via the Transfer API.
+  currency: AED
+  entries:
+  - label: Send money to another Ziina Business account
+    name: transfer_business_to_business
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: transaction
+    geo: AE
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: Transfer API
+- id: ziina-oauth-wallet
+  name: OAuth 2.0 Wallet Integration
+  type: enterprise
+  description: >-
+    Platform / partner integrations that let end users connect Ziina wallets
+    (top up, request, transfer) via OAuth 2.0. Credentials, allowed account
+    types, redirect URIs, and scopes are provisioned by contacting Ziina.
+  entries:
+  - label: Partner integration onboarding
+    name: partner_onboarding
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: contract
+    geo: AE
+    unit: 1
+    price: contact Ziina (support@ziina.com)
+    userMultiplied: false
+  elements:
+  - name: OAuth 2.0 Authorization
+  - name: Account API
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

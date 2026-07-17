@@ -1,0 +1,36 @@
+generated: '2026-07-17'
+method: searched
+probe: true
+source: https://ziina.com/help-center/7915275-is-ziina-safe-to-use
+url: https://ziina.com/help-center/7915275-is-ziina-safe-to-use
+certifications:
+- PCI DSS
+regulatory:
+- authority: Central Bank of the UAE (CBUAE)
+  license: Stored Value Facility (SVF)
+  entity: Ziina Payment LLC
+  licenseNumber: '1112672'
+  note: >-
+    Ziina was reported as the first venture-backed startup to secure a CBUAE
+    Stored Value Facility license. Ziina Payment LLC is licensed by the Central
+    Bank of the UAE.
+controls:
+- Cardholder data stored in PCI-DSS-certified storage (via Very Good Security and payment gateway partners).
+- Biometric authentication on consumer accounts.
+- Data encrypted in transit to Ziina servers (TLS 1.3 confirmed on live probe).
+evidence:
+- source: https://ziina.com/help-center/7915275-is-ziina-safe-to-use
+  keywords:
+  - pci-dss
+  - central bank of the uae
+  - biometric
+  - encrypted
+- source: https://www.adsmehub.ae/en/explore/post-details/ziina-svf-license
+  keywords:
+  - svf license
+  - central bank
+notes: >-
+  Ziina does not publish a formal SOC 2 / ISO 27001 trust center page as of the
+  review date; PCI DSS is asserted via card-data storage partners and CBUAE SVF
+  regulation is the primary compliance anchor. Verify current certifications with
+  Ziina directly (support@ziina.com) before relying on them.
