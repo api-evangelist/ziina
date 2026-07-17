@@ -1,0 +1,47 @@
+generated: '2026-07-17'
+method: searched
+source: https://docs.ziina.com/developers/embedded-checkout
+components:
+- family: Embedded Checkout
+  type: iframe-widget
+  name: Ziina embedded checkout
+  loader: iframe (src = embedded_url from the payment intent response)
+  origin: https://pay.ziina.com
+  versions:
+    param: version
+    values: [latest, v1]
+  params:
+    version: latest (auto-updates) or v1 (stable)
+    locale: en (default) or ar (Arabic)
+  events:
+    channel: window postMessage
+    event_type: ZIINA_PAYMENT_STATUS_CHANGE
+    origin_check: https://pay.ziina.com
+    statuses: [COMPLETED, FAILED, CANCELED]
+  recommended_size:
+    without_tips: 450px x 820px
+    with_tips: 450px x 950px
+  docs: https://docs.ziina.com/developers/embedded-checkout
+  description: >-
+    Client-side embeddable checkout widget rendered in an iframe from the
+    payment intent's embedded_url. Keeps customers on the merchant's site
+    (no redirect), supports Arabic localization, and emits payment-status
+    change events via postMessage. Payments should still be confirmed
+    server-side via webhooks.
+- family: Hosted Checkout
+  type: hosted-redirect-page
+  name: Ziina hosted payment page
+  loader: redirect (redirect_url from the payment intent response)
+  description: >-
+    Full-page hosted checkout (card, Apple Pay, Google Pay) that Ziina hosts;
+    the merchant redirects the buyer to redirect_url and receives them back on
+    success_url / cancel_url.
+platform_plugins:
+- name: WooCommerce plugin
+  docs: https://docs.ziina.com/business/woocommerce
+- name: Shopify app
+  docs: https://docs.ziina.com/business/shopify
+notes: >-
+  Plugins are storefront integrations, not embeddable JS component libraries;
+  listed for completeness. Ziina ships no first-party JS element/web-component
+  library beyond the iframe widget above.

@@ -1,0 +1,43 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Ziina API
+  version: 1.0.0
+extends: openapi/ziina-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enrichment:
+      idempotency: operation_id body field (retry-safe on payment intents and transfers)
+      auth: OAuth 2.0 / OIDC (auth.ziina.com/oidc) issuing JWT bearer tokens
+      amounts: minor unit of currency_code (fils for AED), minimum 2 AED
+      test_mode: pass test=true; see sandbox/ziina-sandbox.yml
+      webhooks: HMAC SHA-256 signed (X-Hmac-Signature); events payment_intent.status.updated, refund.status.updated
+- target: $.components.securitySchemes
+  update:
+    oauth2:
+      type: oauth2
+      description: >-
+        Ziina's OIDC-based OAuth 2.0 authorization server. The bearer JWT applied
+        across the API is an access token minted here. Documented in
+        docs.ziina.com/developers/oauth-2.0 but not declared in the source spec.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ziina.com/oidc/auth
+          tokenUrl: https://auth.ziina.com/oidc/token
+          scopes:
+            read_account: Read the connected account profile.
+            write_payment_intents: Create payment intents and accept payments.
+            write_refunds: Create and fetch refunds.
+            write_transfers: Transfer money to Ziina users.
+            write_webhooks: Register and delete webhook endpoints.
+            offline_access: Receive a refresh_token.
+- target: $.paths./payment_intent.post
+  update:
+    x-idempotency:
+      field: operation_id
+      description: Provide the same operation_id on retries to avoid double-charging.
+- target: $.paths./transfer.post
+  update:
+    x-idempotency:
+      field: operation_id
+      description: operation_id is required and makes the transfer retry-safe.

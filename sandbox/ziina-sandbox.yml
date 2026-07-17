@@ -1,0 +1,40 @@
+generated: '2026-07-17'
+method: searched
+source: https://docs.ziina.com/test-cards
+docs:
+- https://docs.ziina.com/test-cards
+- https://docs.ziina.com/api-reference/payment-intent/create
+test_mode:
+  mechanism: request-flag
+  field: test
+  location: request body (CreatePaymentIntentDto.test, InitiateRefundDto.test)
+  description: >-
+    There is no separate sandbox host or test API key. Pass `test: true` in the
+    Create Payment Intent (or Create Refund) request body to create a test
+    payment. Test payments do not require a real payment method and you are not
+    charged. Test cards work only in test mode and are declined in production.
+  behavior: >-
+    In test mode you can complete a payment intent with any card number, any
+    future expiry date, and any valid CVV format for the card type. The documented
+    test cards below are provided for convenience.
+test_cards:
+- brand: Visa
+  number: '4242424242424242'
+- brand: Visa
+  number: '4000000000000002'
+- brand: Mastercard
+  number: '5555555555554444'
+- brand: Mastercard
+  number: '5200828282828210'
+- brand: Amex
+  number: '378282246310005'
+- brand: Amex
+  number: '371449635398431'
+test_card_rules:
+  expiry: Any future expiration date is valid.
+  cvv: Any valid CVV format for the card type (3 digits for Visa/Mastercard, 4 for Amex).
+  production: Test cards are declined in production.
+notes: >-
+  Ziina publishes no test bank accounts, hosted test tokens, test clocks, or
+  fixture/trigger tooling. Test values captured verbatim from the docs; none were
+  invented.

@@ -1,0 +1,33 @@
+# Ziina
+
+## Docs
+
+- [Get user account](https://docs.ziina.com/api-reference/account/get.md): Use this endpoint to fetch information about the connected Ziina account. Ideal for displaying user identity or validating access
+- [Introduction](https://docs.ziina.com/api-reference/introduction.md): This section provides information about available endpoints, which can be used to integrate with Ziina API
+- [Create Payment Intent](https://docs.ziina.com/api-reference/payment-intent/create.md): Create and manage payment intents using Ziina’s API. Ideal for custom checkouts, mobile apps, and seamless payment flows
+- [Get Payment Intent](https://docs.ziina.com/api-reference/payment-intent/get.md): Retrieve payment intent details from Ziina’s API to monitor user transactions and update your frontend or backend logic accordingly
+- [Payment Intent](https://docs.ziina.com/api-reference/payment-intent/index.md): This page will get you started accepting payments on your website or mobile application with Ziina.
+- [Create refund](https://docs.ziina.com/api-reference/refund/create.md): Issue customer refunds directly from your system using Ziina’s API. Ideal for handling returns, cancellations, and charge adjustments
+- [Get refund by Id](https://docs.ziina.com/api-reference/refund/get.md): Use this endpoint to track a refund’s progress and status. Useful for confirming completion or handling support cases
+- [Transfer money](https://docs.ziina.com/api-reference/transfer/create.md): Automate money transfers via Ziina’s API — for payouts, disbursements, or user-to-user payments within your app or platform
+- [Get transfer by Id](https://docs.ziina.com/api-reference/transfer/get.md): Retrieve transfer details from Ziina’s API to monitor user transactions and update your frontend or backend logic accordingly
+- [Create Webhook](https://docs.ziina.com/api-reference/webhook/create.md): Register a webhook endpoint to receive real-time notifications about payment events like success or failure
+- [Delete webhook](https://docs.ziina.com/api-reference/webhook/delete.md): Remove a previously registered webhook endpoint by ID. Stops all future event deliveries to that URL
+- [Webhooks](https://docs.ziina.com/api-reference/webhook/index.md): This page will get you started with setting webhooks for your app
+- [Embed Ziina wallets in your app](https://docs.ziina.com/business/oauth-2.0.md): Integrate Ziina digital wallets into any app or platform using OAuth 2.0 — no need to handle card data or build your own wallet infrastructure.
+- [Custom integration for other platforms](https://docs.ziina.com/business/other-platforms.md): Custom payment integration for any platform or backend. Build tailored checkout experiences using our API, webhooks — no matter what stack you're using.
+- [Connect Ziina to your Shopify website](https://docs.ziina.com/business/shopify.md): Start accepting payments on your Shopify store with Ziina in just a few minutes. This guide walks you through the setup process step by step.
+- [Connect Ziina to your WooCommerce website](https://docs.ziina.com/business/woocommerce.md): Start accepting payments on your WooCommerce website with Ziina in just a few steps. This guide will walk you through the process to ensure a seamless setup.
+- [Custom integration](https://docs.ziina.com/developers/custom-integration.md): Add Ziina to your app by using our REST API
+- [Embedded checkout](https://docs.ziina.com/developers/embedded-checkout.md): Keep customers on your site. Accept payments without redirects.
+- [OAuth 2.0](https://docs.ziina.com/developers/oauth-2.0.md): Enable secure and reliable access for advanced integrations
+- [Use cases](https://docs.ziina.com/developers/use-cases.md): This page lists some of the most popular use cases so you get an idea of all the ways we can help you facilitate payments
+- [Overview](https://docs.ziina.com/getting-started.md): Explore Ziina’s developer-friendly payment API. Accept payments, integrate digital wallets, and customize checkout flows with easy guides and robust tools
+- [Supported currencies](https://docs.ziina.com/supported-currencies.md): Check supported currencies for Ziina’s payment gateway and wallet features — including AED, USD, and other major international currencies
+- [Test cards](https://docs.ziina.com/test-cards.md): Test Cards for Payment Integration
+
+## OpenAPI Specs
+
+- [payment-service-openapi](https://docs.ziina.com/api-reference/payment-service-openapi.json)
+- [account-manager-openapi](https://docs.ziina.com/api-reference/account-manager-openapi.json)
+- [openapi](https://docs.ziina.com/api-reference/openapi.json)

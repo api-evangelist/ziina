@@ -1,0 +1,27 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/ziina-openapi.yml
+format: custom
+envelope:
+  schema: ErrorDto
+  fields:
+    message: A human-readable error message
+    code: HTTP error status code (string)
+  surfaced_on:
+  - PaymentIntentDto.latest_error (error encountered while processing a payment intent)
+  - RefundDto.error (optional error on a refund)
+notes: >-
+  Ziina does not use RFC 9457 application/problem+json. Errors are returned in a
+  simple { message, code } envelope (ErrorDto). The OpenAPI does not enumerate
+  per-status responses (operations declare a single `default` response), so a
+  granular problem-type registry cannot be derived. The processing errors that
+  can attach to a payment intent or refund are represented by the ErrorDto shape
+  above. The docs publish no standalone error-code reference table.
+problems:
+- component: ErrorDto
+  title: Payment/refund processing error
+  fields: [message, code]
+  source_schema: openapi/ziina-openapi.yml#/components/schemas/ErrorDto
+  seen_on:
+  - openapi/ziina-openapi.yml#PaymentIntentController_createPaymentIntent (latest_error)
+  - openapi/ziina-openapi.yml#RefundController_initiateRefund (error)

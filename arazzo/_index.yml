@@ -1,0 +1,12 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/ziina-openapi.yml
+workflows:
+- file: ziina-accept-payment.arazzo.yml
+  workflowId: accept-payment
+  title: Ziina - accept a payment and confirm
+  summary: Create a payment intent and poll it to a terminal status.
+- file: ziina-refund-payment.arazzo.yml
+  workflowId: refund-payment
+  title: Ziina - refund a payment and confirm
+  summary: Issue a refund against a payment intent and confirm its status.

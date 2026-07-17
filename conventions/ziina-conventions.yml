@@ -1,0 +1,70 @@
+generated: '2026-07-17'
+method: searched
+source:
+- openapi/ziina-openapi.yml
+- https://docs.ziina.com/api-reference/introduction
+- https://docs.ziina.com/developers/oauth-2.0
+description: >-
+  Cross-cutting request/response semantics for the Ziina payment API, derived
+  from the OpenAPI and confirmed against the developer docs.
+authentication:
+  style: bearer
+  header: 'Authorization: Bearer <JWT>'
+  token_source: OAuth 2.0 / OIDC access token from auth.ziina.com/oidc, or a
+    business-connect personal access token.
+  ref: authentication/ziina-authentication.yml
+idempotency:
+  supported: true
+  mechanism: client-generated operation_id in the request body
+  field: operation_id
+  format: UUID (client-generated)
+  applies_to:
+  - POST /payment_intent (operation_id echoed on the returned PaymentIntent)
+  - POST /transfer (operation_id required)
+  retention: not documented
+  description: >-
+    Ziina uses a body-level idempotency key rather than an Idempotency-Key
+    header. Transfers require operation_id; payment intents return operation_id.
+    "In case of retries provide the same operation_id" - re-sending a request
+    with the same operation_id is safe and will not double-charge or
+    double-transfer.
+amounts:
+  unit: minor / base unit of the currency (fils for AED)
+  example: 10.50 AED is passed as 1050
+  minimum: 2 AED
+  currency_field: currency_code (3-letter ISO-4217)
+pagination:
+  supported: false
+  note: The API exposes only single-resource GET-by-id operations; there are no
+    list/collection endpoints, so no pagination contract exists.
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+  note: No arbitrary metadata field; free-text `message` is displayed to the user
+    on the hosted payment page.
+request_tracing:
+  request_id_header: not documented
+versioning:
+  api: URI path segment (api-v2.ziina.com/api)
+  embedded_widget:
+    param: version
+    values: [latest, v1]
+    note: >-
+      The embedded checkout iframe takes a version query param - `version=latest`
+      (auto-updates, may introduce breaking changes) or `version=v1` (stable,
+      "might be deprecated eventually").
+error_envelope:
+  shape: '{ message: string, code: string }'
+  schema: ErrorDto (openapi/ziina-openapi.yml#/components/schemas/ErrorDto)
+  surfaced_as: PaymentIntentDto.latest_error and RefundDto.error
+  format: custom (not RFC 9457 problem+json)
+  ref: errors/ziina-problem-types.yml
+rate_limit_signaling:
+  documented: false
+  ref: rate-limits/ziina-rate-limits.yml
+webhooks:
+  signing: HMAC SHA-256 (hex) in the X-Hmac-Signature header when a shared secret is configured
+  retries: up to 3 retries on non-2xx delivery
+  source_ips: [3.29.184.186, 3.29.190.95, 20.233.47.127, 13.202.161.181]
+  ref: asyncapi/ziina-webhooks-asyncapi.yml

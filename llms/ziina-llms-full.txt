@@ -1,0 +1,1087 @@
+# Get user account
+Source: https://docs.ziina.com/api-reference/account/get
+
+../account-manager-openapi.json GET /account
+Use this endpoint to fetch information about the connected Ziina account. Ideal for displaying user identity or validating access
+
+<Note>
+  Currently this endpoint works only with OAuth 2.0 flow.\
+  In order to call this endpoint your token must have `read_account`
+  [scope](/developers/oauth-2.0#available-scopes).
+</Note>
+
+
+# Introduction
+Source: https://docs.ziina.com/api-reference/introduction
+
+This section provides information about available endpoints, which can be used to integrate with Ziina API
+
+In order to use Ziina API you need to get access token. Access token can be received for two possible scenarios:
+
+* If you have your online store and would like to accept payments from your users to your Ziina wallet
+* Or you have mobile application or online service, where you would like to provide payments functionality to your users.
+  For example, you can add online transfers or allow users accept payments on their Ziina wallets.
+
+<CardGroup>
+  <Card title="Get token at Ziina website" icon="globe" href="https://ziina.com/business/connect">
+    If you want to integrate your shop and get money on your Ziina wallet
+  </Card>
+
+  <Card title="OAuth 2.0" icon="code" href="/developers/oauth-2.0">
+    If you want to integrate your application and perform actions on users
+    behalf
+  </Card>
+</CardGroup>
+
+
+# Create Payment Intent
+Source: https://docs.ziina.com/api-reference/payment-intent/create
+
+../payment-service-openapi.json POST /payment_intent
+Create and manage payment intents using Ziina’s API. Ideal for custom checkouts, mobile apps, and seamless payment flows
+
+
+
+# Get Payment Intent
+Source: https://docs.ziina.com/api-reference/payment-intent/get
+
+../payment-service-openapi.json GET /payment_intent/{id}
+Retrieve payment intent details from Ziina’s API to monitor user transactions and update your frontend or backend logic accordingly
+
+
+
+# Payment Intent
+Source: https://docs.ziina.com/api-reference/payment-intent/index
+
+This page will get you started accepting payments on your website or mobile application with Ziina.
+
+<Note>
+  In order to call these endpoints your token must have `write_payment_intents`
+  [scope](/developers/oauth-2.0#available-scopes).
+</Note>
+
+Accept payments on your website or mobile application using Ziina's Payment Intent API. Create a Payment Intent to generate a payment page for the payment you wish to collect.
+
+# Creating a Payment Intent
+
+The PaymentIntent object manages the process of collecting a payment from your customer. To create a PaymentIntent, call the `/payment_intent` endpoint from your server with the parameters of the payment you wish to collect, including the amount and currency of the payment, and success and cancel URLs.
+
+The amount should be represented as a number in terms of fils, so if you wish to charge 100 AED, the amount parameter should be `10000`. The minimum amount for a payment is 2 AED.
+
+The payment page will navigate to the `success_url` you have specified when the customer completes their payment. Should the customer cancel the payment, the payment page will navigate to the `cancel_url` you have specified. If you need the Payment Intent ID to be returned in the success or cancel URL, include `{PAYMENT_INTENT_ID}` in your URL and it will be replaced with the ID of the Payment Intent.
+
+# Navigating to the payment page
+
+The Payment Intent response will include a parameter `redirect_url`, which will be returned to the client to access the payment page. On the client, navigate to this page to allow the customer to complete the payment. They will have the option to pay with credit/debit card and Apple Pay or Google Pay if it is supported by the platform and/or browser.
+
+Once the customer has completed the payment, the browser will navigate to the `success_url` that was set when creating the Payment Intent.
+
+If the user cancels the payment, the browser will navigate to the `cancel_url` that was provided when creating the payment.
+
+# Fetching a Payment Intent
+
+You can check the status of a Payment Intent by fetching it from the `/payment_intent/{id}` endpoint. The Payment Intent will include a field `status` indicating the status of the Payment Intent. The possible values for `status` are:
+
+* `requires_payment_instrument`: The customer has not yet attempted to make the payment.
+* `pending`: The payment is processing.
+* `requires_user_action`: The user must complete an action (for example, 3-D Secure authentication) to complete the payment.
+* `completed`: The payment is complete.
+* `failed`: The payment has failed. Check the `latest_error` object on the Payment Intent for a more detailed description of the failure.
+
+# Testing your integration
+
+To test your integration, pass the parameter `test` with value `true` when creating a Payment Intent. You can complete a test Payment Intent using any card number, expiry, and CVV. No money will be charged.
+
+
+# Create refund
+Source: https://docs.ziina.com/api-reference/refund/create
+
+../payment-service-openapi.json POST /refund
+Issue customer refunds directly from your system using Ziina’s API. Ideal for handling returns, cancellations, and charge adjustments
+
+<Note>
+  In order to call this endpoint your token must have `write_refunds`
+  [scope](/developers/oauth-2.0#available-scopes).
+</Note>
+
+
+# Get refund by Id
+Source: https://docs.ziina.com/api-reference/refund/get
+
+../payment-service-openapi.json GET /refund/{id}
+Use this endpoint to track a refund’s progress and status. Useful for confirming completion or handling support cases
+
+<Note>
+  In order to call this endpoint your token must have `write_refunds`
+  [scope](/developers/oauth-2.0#available-scopes).
+</Note>
+
+
+# Transfer money
+Source: https://docs.ziina.com/api-reference/transfer/create
+
+../payment-service-openapi.json POST /transfer
+Automate money transfers via Ziina’s API — for payouts, disbursements, or user-to-user payments within your app or platform
+
+<Note>
+  In order to call this endpoint your token must have `write_transfers`
+  [scope](/developers/oauth-2.0#available-scopes).
+</Note>
+
+This endpoint allows to transfer funds between Ziina accounts either by account\_id or by ziiname
+
+
+# Get transfer by Id
+Source: https://docs.ziina.com/api-reference/transfer/get
+
+../payment-service-openapi.json GET /transfer/{id}
+Retrieve transfer details from Ziina’s API to monitor user transactions and update your frontend or backend logic accordingly
+
+<Note>
+  In order to call this endpoint your token must have `write_transfers`
+  [scope](/developers/oauth-2.0#available-scopes).
+  Only the payer or the receiver can fetch the transfer.
+</Note>
+
+
+# Create Webhook
+Source: https://docs.ziina.com/api-reference/webhook/create
+
+../payment-service-openapi.json POST /webhook
+Register a webhook endpoint to receive real-time notifications about payment events like success or failure
+
+Webhooks which we send currently include only one event `payment_intent.status.updated`
+
+
+# Delete webhook
+Source: https://docs.ziina.com/api-reference/webhook/delete
+
+../payment-service-openapi.json DELETE /webhook
+Remove a previously registered webhook endpoint by ID. Stops all future event deliveries to that URL
+
+
+
+# Webhooks
+Source: https://docs.ziina.com/api-reference/webhook/index
+
+This page will get you started with setting webhooks for your app
+
+<Note>
+  In order to call these endpoints your token must have `write_webhooks`
+  [scope](/developers/oauth-2.0#available-scopes).
+</Note>
+
+To set a webhook URL, make a `POST` request to `/webhook` with a body payload:
+
+* `url`: the URL you would like to set for your webhook.
+* `secret`: optional. If provided, the secret will be used to generate an HMAC signature that will be passed as a header
+
+Any subsequent calls to this URL will overwrite the webhook URL for your account.
+
+Ziina will deliver events by making a `POST` request to your webhook URL. In the event of a non-ok status code, Ziina will retry 3 times to delivery the event. The webhook request will contain a body with the following fields:
+
+* `event`: the name of the event being delivered
+* `data`: the event data
+
+Currently the event and data options are:
+
+* `payment_intent.status.updated`: A [payment intent’s](../api-reference/payment-intent/index) status has been updated
+* `refund.status.updated`: A [refund’s](../api-reference/refund/get) status has been updated
+
+If a secret was provided when configuring the webhook, the HTTP request will contain a header `X-Hmac-Signature` that can be used to confirm the authenticity of the request. The value of this field will be the hexadecimal encoded SHA-256 HMAC signature of the request body.
+
+Webhooks will come from one of the following IP addresses. Do not accept the webhook if it comes from a different IP address:
+
+* 3.29.184.186
+* 3.29.190.95
+* 20.233.47.127
+* 13.202.161.181
+
+
+# Embed Ziina wallets in your app
+Source: https://docs.ziina.com/business/oauth-2.0
+
+Integrate Ziina digital wallets into any app or platform using OAuth 2.0 — no need to handle card data or build your own wallet infrastructure.
+
+Offer your users Ziina wallets and top-up, collect, and transfer funds on their behalf from within your application. This unlocks functionality like peer-to-peer transfers, transaction data retrieval, and more—directly from your application.
+
+## What you can do
+
+You can enhance your app by automating workflows and integrating powerful Ziina features. Here are a few examples:
+
+<AccordionGroup>
+  <Accordion title="Allow users to get paid on your platform">
+    Let users of your app receive payments directly, while giving you the
+    flexibility to add your own commission on top. **Examples:** Marketplaces
+    (e.g., freelance platforms, e-commerce), creator monetization platforms.
+    [Learn
+    more](/developers/use-cases#how-can-my-users-get-paid-to-their-ziina-wallets-inside-my-app)
+  </Accordion>
+
+  <Accordion title="Enable peer-to-peer transfers">
+    Offer users the ability to send money directly to others for splitting
+    bills, repaying loans, or gifting. **Examples:** Personal finance apps,
+    bill-splitting services (e.g., roommate expense trackers), social gifting
+    platforms. [Learn
+    more](/developers/use-cases#how-can-my-users-transfer-money-inside-my-app)
+  </Accordion>
+
+  <Accordion title="Automate refunds">
+    Simplify refund management by automating transactions for cancellations or
+    disputes. **Examples:** E-commerce platforms, ticketing services,
+    subscription-based apps. [Learn
+    more](/developers/use-cases#how-can-i-automatically-issue-refunds-in-my-application)
+  </Accordion>
+
+  <Accordion title="Process payroll or vendor payments">
+    Streamline payroll or vendor payments with bulk transaction capabilities,
+    reducing admin work. **Examples:** HR & payroll management software,
+    corporate expense management tools, B2B procurement platforms. [Learn
+    more](/developers/use-cases#how-can-i-perform-money-disbursements-in-my-app)
+  </Accordion>
+
+  <Accordion title="Curate your user base">
+    Only allow Ziina users onto your platform who have undergone Know Your
+    Customer and thorough vetting. **Examples:** Loyalty programs, exclusive
+    membership-based services. [Learn
+    more](/developers/use-cases#how-can-i-conduct-kyc-know-your-customer-in-my-app)
+  </Accordion>
+</AccordionGroup>
+
+## How It Works
+
+Using OAuth 2.0, you can allow your users to sign in with Ziina directly from your application. OAuth 2.0 is a secure protocol that lets your application request specific permissions from users without requiring their credentials. Once users grant access, your app can perform authorized actions such as creating payments or transferring money on their behalf.
+Here is what a typical flow looks like:
+
+* **User Consent:** Display a button or link in your app (e.g., “Connect with Ziina” or “Grant permissions”) to request user permissions.
+* **Redirect to Ziina:** Users are redirected to Ziina to review and approve the requested permissions securely.
+* **Access Granted:** Upon approval, your app receives an access token. This token allows your app to perform the authorized actions on behalf of the user.
+
+## Next steps
+
+For detailed instructions and examples, visit our [OAuth 2.0](/developers/oauth-2.0) guide.
+
+## Need help?
+
+If you have questions, visit our [help center](https://ziina.com/help-center) or contact us at [support@ziina.com](mailto:support@ziina.com).
+
+
+# Custom integration for other platforms
+Source: https://docs.ziina.com/business/other-platforms
+
+Custom payment integration for any platform or backend. Build tailored checkout experiences using our API, webhooks — no matter what stack you're using.
+
+## Before you begin
+
+To activate Ziina on , make sure:
+
+* You’ve completed onboarding.
+* Your Ziina account is verified.&#x20;
+
+If your website isn’t built with Shopify or WooCommerce, you can still integrate Ziina by creating a custom integration. Follow these two simple steps to get started:
+
+## Step 1: Get Your API key
+
+1. Click [here](https://ziina.com/business/connect) to generate your API key.
+2. Select **‘Other builder or custom’** and enter your phone number, OTP, and email.
+3. Your API key will be generated instantly. **Save it securely—this is the only time it will be displayed.**
+
+<Note>
+  If you don’t already have a Ziina account, download the Ziina app and complete
+  onboarding (you’ll need your Emirates ID). This process takes about 4 minutes.
+  Your account must be verified to receive payments.
+</Note>
+
+## Step 2: Call Ziina’s API
+
+Use your API key to connect your platform to Ziina and start accepting payments.
+For detailed instructions and examples, visit our [custom integration guide](/developers/custom-integration).
+
+<Note>
+  This setup requires developer expertise. Share our API Documentation with your
+  developer to help them get started.
+</Note>
+
+## Need help?
+
+If you have questions, visit our [help center](https://ziina.com/help-center) or contact us at [support@ziina.com](mailto:support@ziina.com).
+
+
+# Connect Ziina to your Shopify website
+Source: https://docs.ziina.com/business/shopify
+
+Start accepting payments on your Shopify store with Ziina in just a few minutes. This guide walks you through the setup process step by step.
+
+## Before you begin
+
+To activate Ziina on , make sure:
+
+* You’ve completed onboarding.
+* Your Ziina account is verified.&#x20;
+
+# How to set up Ziina on Shopify
+
+<Steps>
+  <Step title="Open Ziina page on the Shopify App Store">
+    Follow [this](https://apps.shopify.com/ziina) link to access the Ziina page
+  </Step>
+
+  <Step title="Click Add App">
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Log in to your Shopify account">
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Click 'Install App'">
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Enter your UAE phone number and OTP">
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Click 'Accept & Open Shopify'">
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Click 'Activate Ziina'">
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Click the 'back' arrow">
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Deactivate other payment methods">
+    To avoid confusion and splitting payments, we highly encourage you to
+    deactivate other payment methods. This way, you'll be able to track and
+    manage every payment from your website through your Ziina app. If you have
+    another payment method: <br />
+
+    1. Click Manage <br />
+    2. Click Deactivate <br />
+    3. Click Uninstall
+  </Step>
+
+  <Step title="Download Ziina app">
+    Download the [Ziina
+    app](https://ziina.com/business/?shortlink=gatewaypayment\&c=api_link\&pid=website_payments\&af_click_lookback=30d\&af_xp=custom\&source_caller=ui)
+    on your phone. Click Ziina Professional, enter your phone number and
+    complete the remaining onboarding steps (you will need your Emirates ID).
+  </Step>
+
+  <Step title="Start receiving orders!">
+    You're all set! Track all your payments from your Shopify website from your
+    phone on your Ziina app 💸
+  </Step>
+</Steps>
+
+## Need help?
+
+If you have questions, visit our [help center](https://ziina.com/help-center) or contact us at [support@ziina.com](mailto:support@ziina.com).
+
+
+# Connect Ziina to your WooCommerce website
+Source: https://docs.ziina.com/business/woocommerce
+
+Start accepting payments on your WooCommerce website with Ziina in just a few steps. This guide will walk you through the process to ensure a seamless setup.
+
+## Before you begin
+
+To activate Ziina on , make sure:
+
+* You’ve completed onboarding.
+* Your Ziina account is verified.&#x20;
+
+# Requirements
+
+<Steps>
+  <Step title="Check if you have WooCommerce or WordPress">
+    Open your store website, and check the side bar. If WooCommerce appears as
+    shown in the screenshot below, continue following the steps in this guide.
+
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Creating a Ziina Account and Getting your API key">
+    Click on [this link](https://ziina.com/business/connect/), select
+    WooCommerce and enter your phone number, OTP and email. You will immediately
+    get access to your API key. This is the only time you’ll see it, so make
+    sure you store it somewhere safe. If you don't already have a Ziina account
+    your integration won't work until you download the app and complete your
+    onboarding process (it takes 4 minutes).
+  </Step>
+
+  <Step title="Download the Ziina App and complete onboarding">
+    Download the [Ziina
+    App](https://ziina.com/business/?shortlink=gatewaypayment\&c=api_link\&pid=website_payments\&af_click_lookback=30d\&af_xp=custom\&source_caller=ui)
+    on your phone, click on Ziina Professional, enter your phone number and
+    complete the onboarding steps (you will need your Emirates ID). You won't be
+    able to receive payments on your website until this step is completed and
+    your account is verified.
+  </Step>
+</Steps>
+
+# Installing the Ziina plugin
+
+<Steps>
+  <Step title="Log in to your WordPress site" />
+
+  <Step title="Add new plugin">
+    In the left sidebar, hover over **Plugins** and then click **Add New**
+
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Install Ziina plugin">
+    Enter "Ziina" in the search bar and click **Install Now** to install the
+    plugin.
+
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+</Steps>
+
+# Configuring the Ziina plugin
+
+<Steps>
+  <Step title="Open WooCommerce settings">
+    Click on **WooCommerce** in the left sidebar and click on **Settings**
+
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Open payments tab">
+    Select **Payments** at the top of the page.
+
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Ensure Ziina is enabled in the list of payment options">
+    Ziina payment toggle is supposed to be switched on
+
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Configure your API key">
+    Enter your API key in the field **API key**
+
+    <Frame>
+      <img />
+    </Frame>
+  </Step>
+
+  <Step title="Optional: change title and description">
+    You can also change the **Title** and **Description** of the Ziina payment
+    option. The title you enter is what appears on your website for your
+    customers. Let them know they can use this payment option to pay by
+    credit/debit card, Apple Pay, and Google Pay.
+  </Step>
+
+  <Step title="Click 'Save Changes' and you’re done!" />
+</Steps>
+
+## Embedded Checkout
+
+The embedded checkout mode displays the Ziina payment widget directly on your WooCommerce checkout page, so customers complete their payment without being redirected to an external page.
+
+### Enabling embedded checkout
+
+These settings are available starting in plugin version **1.2.21**. If you do not see them, update the plugin.
+
+<Frame>
+  <img />
+</Frame>
+
+<Steps>
+  <Step title="Select 'Embedded' as the checkout mode">
+    In the Ziina plugin settings, find the **Checkout mode** dropdown and select **Embedded**.
+  </Step>
+
+  <Step title="Set the embedded widget locale">
+    Use the **Embedded widget locale** dropdown to choose the language the payment widget will display to your customers (e.g. English or Arabic).
+  </Step>
+</Steps>
+
+### Domain verification
+
+Embedded checkout requires your store's domain to be verified before it can be activated. Follow the three steps below inside the plugin settings panel.
+
+<Steps>
+  <Step title="Set up domain verification">
+    Click the **Set up domain verification** button. This automatically places the required Apple Pay domain verification file on your site. Once the file is in place, you will see the confirmation message **Domain verification file: present** beneath the button.
+  </Step>
+
+  <Step title="Contact support to whitelist your domain">
+    Click the **Contact support** button and send a message to the Ziina support team asking them to verify and whitelist your domain. Include your store URL in the message.
+  </Step>
+
+  <Step title="Save your settings">
+    Once Ziina support confirms your domain is verified, return to the plugin settings, make sure **Embedded** is selected as the checkout mode, and click **Save changes**.
+  </Step>
+</Steps>
+
+<Note>
+  Domain verification is a one-time step. You do not need to repeat it unless your store domain changes.
+</Note>
+
+# Completing a test transaction
+
+To test a transaction, check the box in Ziina payment settings titled **Test mode**.
+
+<Frame>
+  <img />
+</Frame>
+
+You can now test the payment flow, and your card will not be charged. Be sure to uncheck this box before making your site live.
+
+## You’re all set
+
+You can now track all your WooCommerce payments directly from the Ziina app. It’s simple, fast, and designed to help you manage your business with ease.
+
+## Need help?
+
+If you have questions, visit our [help center](https://ziina.com/help-center) or contact us at [support@ziina.com](mailto:support@ziina.com).
+
+
+# Custom integration
+Source: https://docs.ziina.com/developers/custom-integration
+
+Add Ziina to your app by using our REST API
+
+<Note>
+  This page is intended for developers. If you aren't one then you might want to
+  visit [Shopify](/business/shopify) or [WooCommerce](/business/woocommerce)
+  integration pages
+</Note>
+
+If your website isn't built with Shopify or WooCommerce you can create a custom integration with Ziina.
+In order to do that first you need to get access token. All Ziina APIs require an access token to accept requests. Ziina uses the bearer authentication strategy to authenticate API calls.
+
+## Requesting an access token
+
+1. Click [here](https://ziina.com/business/connect) to generate your access token.
+2. Select **‘Other builder or custom’** and enter your phone number, OTP, and email.
+3. Your access token will be generated instantly. **Save it securely—this is the only time it will be displayed.**
+
+## Authenticating API calls
+
+To authenticate your API calls, be sure to include a header with every request of the following format:\
+`Authorization`: `Bearer <access token>`
+
+## Call Ziina API
+
+With access token you can now call Ziina API. In order to start accepting payments you need to [create payment intent](/api-reference/payment-intent/create).\
+Go to [API Reference](/api-reference/introduction) page for more available endpoints.
+
+## Testing
+
+For your convenience, we provide [test parameter](/api-reference/payment-intent/create#body-test) to create test payment link.
+For test data please refer to [test cards](/test-cards) page
+
+## Need help?
+
+If you have questions, visit our [help center](https://ziina.com/help-center) or contact us at [support@ziina.com](mailto:support@ziina.com).
+
+
+# Embedded checkout
+Source: https://docs.ziina.com/developers/embedded-checkout
+
+Keep customers on your site. Accept payments without redirects.
+
+## What is embedded checkout?
+
+Ziina's Embedded Checkout lets customers pay directly on your website—no redirects, no drop-offs. It's a secure, seamless payment form that lives inside your page, so your brand stays front and center. That means faster checkouts, fewer distractions, and more completed payments.
+
+## Before you begin
+
+1. Host the [domain verification file](https://s3-aws-uae-prd-public-web-assets-01.s3.me-central-1.amazonaws.com/embedded_checkout/apple-developer-merchant-id-domain-association) at `https://[your-domain.com]/.well-known/apple-developer-merchantid-domain-association`. This file
+   needs to be served with `"Content-Type": "text/plain"` header
+2. Contact Ziina support with your website domain(s). Once approved, you can embed checkout on those domains.
+
+## Implementation Steps
+
+### 1. Generate API Token
+
+Visit [https://ziina.com/business/connect](https://ziina.com/business/connect) to get your API token.
+
+### 2. Create a payment intent
+
+Create a payment intent using the Ziina API: [Create Payment Intent](/api-reference/payment-intent/create)
+
+### 3. Display the checkout form
+
+Use the `embedded_url` from the payment intent response to show the checkout in an iframe. In addition, provide a version, you would
+like to use. Currently, we support two versions:
+
+* `version=latest` for automatic updates (breaking changes may occur in the future)
+* `version=v1` for stable version (might be deprecated eventually)
+
+```javascript theme={null}
+<iframe 
+  id="ziina-checkout"
+  src="[embedded_url from response]?version=latest"
+  width="500px"
+  height="820px"
+  frameborder="0"
+  allow="payment"
+>
+</iframe>
+```
+
+#### Internationalization (i18n)
+
+The checkout widget displays in English by default.
+To display in Arabic, add `locale=ar` query parameter to the embedded URL:
+
+```javascript theme={null}
+<iframe 
+  id="ziina-checkout"
+  src="[embedded_url from response]?version=latest&locale=ar"
+  width="500px"
+  height="820px"
+  frameborder="0"
+  allow="payment"
+>
+</iframe>
+```
+
+#### Widget size
+
+For a better user experience, we suggest you display the embedded widget with one of the following dimensions:
+
+* **Without tips**: 450px width x 820px height
+
+<Frame>
+  <img />
+</Frame>
+
+* **With tips**: 450px width x 950px height
+
+<Frame>
+  <img />
+</Frame>
+
+### 4. Handle payment events
+
+You can subscribe to the `ZIINA_PAYMENT_STATUS_CHANGE` event from the iframe to update your UI accordingly. The iframe will notify you when the payment status changes to: `COMPLETED`, `FAILED`, or `CANCELED`.
+
+```javascript theme={null}
+window.addEventListener('message', function(event) {
+  const iframe = document.getElementById('ziina-checkout');
+  if (event.source !== iframe.contentWindow) return;
+
+  const { type, data } = event.data || {};
+  if (event.origin !== 'https://pay.ziina.com' || type !== 'ZIINA_PAYMENT_STATUS_CHANGE') {
+    return;
+  }
+  
+  if (data.status === "COMPLETED") {
+    console.log("Payment successful");
+    // Handle successful payment
+  }
+});
+```
+
+### 5. Verify payments via webhooks
+
+Set up webhooks on your backend to confirm payments: [Create Webhook](https://docs.ziina.com/api-reference/webhook)
+
+This ensures you have reliable payment confirmation even if the customer closes their browser.
+
+
+# OAuth 2.0
+Source: https://docs.ziina.com/developers/oauth-2.0
+
+Enable secure and reliable access for advanced integrations
+
+<Note>
+  Note: OAuth access is not enabled by default for all merchants. Each application is reviewed and approved on a case-by-case basis.
+</Note>
+
+# What is OAuth 2.0?
+
+OAuth 2.0 is an industry-standard authorization framework that enables secure, delegated access to resources without sharing credentials. It allows applications to obtain limited access to a user's account on an HTTP service, such as social media or cloud storage, on their behalf. Instead of sharing passwords, OAuth 2.0 issues tokens that grant specific permissions, enhancing security and user convenience.
+
+# Before you begin
+
+In order to start your integration please contact our support team to get set up. You need to provide the following information:
+
+* Types of accounts you'd like to allow to connect Ziina wallets to your app: Personal, Business or both
+* Redirect URI (explained below)
+* Scopes you would like to request. See [available scopes](/developers/oauth-2.0#available-scopes)
+
+You'll receive a `client_id`, `username` and `password` to use with our API.
+
+# OAuth 2.0 token retrieval process
+
+The API flow is captured in the following diagram:
+
+```mermaid theme={null}
+sequenceDiagram
+    participant User
+    participant YourApp
+    participant ZiinaAuth
+
+    User->>YourApp: 1. Initiates authorization from YourApp
+    YourApp->>ZiinaAuth: 2. GET /oidc/auth
+    ZiinaAuth->>User: 3. Prompts User for login and permissions grant
+    User->>ZiinaAuth: 4. Authenticates and grants permissions
+    ZiinaAuth->>YourApp: 5. Redirect to redirect_uri
+    YourApp->>ZiinaAuth: 6. POST /oidc/token with Basic Auth Authorization header
+    ZiinaAuth->>YourApp: 7. Response with access_token
+    YourApp->>ZiinaAPI: 8. Make API calls with<br>Authorization: Bearer access_token
+    ZiinaAPI->>YourApp: 9. Return API responses
+```
+
+<Steps>
+  <Step title="User initiates authorization from YourApp" />
+
+  <Step title="Navigate user to authentication service">
+    ```
+      https://auth.ziina.com/oidc/auth
+      ?client_id=test
+      &response_type=code
+      &redirect_uri=https://example.com/callback
+      &scope=read_account+write_payment_intents
+      &state=xyz123
+    ```
+
+    * `client_id` you should obtain in advance (contact us)
+    * `redirect_uri` – URI where user will be redirected after permissions have been granted. Should be shared with us in advance.
+    * `response_type=code` for the Authorization Code grant. Must be always provided.
+    * `state` an optional parameter to track the state between initiating and completing auth
+    * `prompt` this field is optional, but if `offline_access` [scope](/developers/oauth-2.0#available-scopes) is required then this value must be set to `consent`
+    * `scope` – Permissions you want to request. If you need to request multiple permissions you need to join them with `+` sign. Available scopes can be found [here](/developers/oauth-2.0#available-scopes)
+  </Step>
+
+  <Step title="Ziina asks user to grant access" />
+
+  <Step title="User grants permissions at https://auth.ziina.com" />
+
+  <Step title="User is redirected to your redirect_uri">
+    Following query params added to your redirect\_uri
+
+    * `iss=https://auth.ziina.com`
+    * `code=${authorizationCode}` which you need to use to exchange for access and refresh tokens
+    * `state=${state}` if this field was passed initially
+  </Step>
+
+  <Step title="Exchange code for access_token">
+    Send
+
+    ```http theme={null}
+      POST /oidc/token?code=${authorizationCode}&redirect_uri=${redirectUri}&grant_type=authorization_code&scope=read_account+write_payment_intents HTTP/1.1
+      Host: auth.ziina.com
+      Content-Type: application/x-www-form-urlencoded
+      Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
+
+      grant_type=authorization_code&code=${authorizationCode}&redirect_uri=${redirectUri}&scope=read_account+write_payment_intents
+    ```
+
+    * `authorizationCode` is the code, which you got at previous step. Its lifetime is 1 minute.
+    * Use username and password provided by support to add basic authorization header
+      with Base64-encoded `${username}:${password}` string prepended with the word `Basic`
+  </Step>
+
+  <Step title="Ziina responds with access_token">
+    Example response
+
+    ```json theme={null}
+      {
+        access_token: "123Abcdef....",
+        expires_in: 9007199254740991,
+        scope: "read_account write_payment_intents",
+        token_type: "Bearer"
+      }
+    ```
+  </Step>
+
+  <Step title="Make API calls with the Bearer authorization header">
+    API reference can be found [here](/api-reference/)
+  </Step>
+</Steps>
+
+### Optional: refresh your access\_token
+
+Once your `access_token` token expires you might want to get a new one. In order to do that you need
+to send the following request:
+
+```http theme={null}
+POST /oidc/token?grant_type=refresh_token&refresh_token=123Abcdef HTTP/1.1
+Host: auth.ziina.com
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
+
+grant_type=refresh_token&refresh_token=123Abcdef
+```
+
+To create the Basic authorization header, encode the string `${username}:${password}` in Base64 and prepend it with the word `Basic`.
+
+<Note>
+  In order to get refresh\_token you need to add scope=offline\_access when you
+  get access\_token
+</Note>
+
+### Available scopes
+
+* `write_payment_intents`. Allows to create [payment intents](/api-reference/payment-intent/index) and accept payments on users behalf
+* `write_refunds`. Allows to create and fetch [refunds](/api-reference/refund/get)
+* `write_webhooks`. Allows to create and delete [webhooks](/api-reference/webhook/index)
+* `write_transfers`. Allows to [transfer](/api-reference/transfer/create) money to Ziina users
+* `offline_access`. Add this scope if you want to get `refresh_token`
+* `read_account`. This scope is required if you want to [get user account information](/api-reference/account/get)
+
+<Note>
+  Tokens obtained at Ziina website on [business connect
+  page](https://ziina.com/business/connect) have all available scopes assigned.
+</Note>
+
+### Example integration
+
+1. Redirect the user to the authorization service as described in Step 1 above.
+2. Use the code below to exchange the authorization code for an access token.
+
+```js Example OAuth integration theme={null}
+const express = require('express');
+const app = express();
+
+const username = "username_you_got_from_us";
+const password = "password_you_got_from_us";
+const base64Auth = Buffer.from(`${username}:${password}`).toString('base64');
+// You can request only approved scopes
+const scopes = [
+  "read_account",
+  "write_payment_intents",
+  "write_webhooks",
+];
+const url = "https://auth.ziina.com/oidc/token";
+
+async function sendTokenRequest(bodyParams) {
+	const body = new URLSearchParams(bodyParams).toString();
+	const response = await fetch(url, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+			Authorization: `Basic ${base64Auth}`,
+		},
+		body,
+	});
+
+	return response.json();
+}
+
+async function exchangeCodeForToken(code) {
+  const params = {
+    code,
+    redirect_uri: "redirect_uri_you_provided_us",
+    grant_type: "authorization_code",
+    scope: scopes.join("+"),
+  }
+  
+  return sendTokenRequest(params);
+}
+
+// Not required if you don't need to refresh your token
+async function rotateTokens(refreshToken) {
+  const params = {
+    refresh_token: refreshToken,
+    grant_type: "refresh_token",
+  }
+
+  return sendTokenRequest(params);
+}
+
+/*
+  This endpoint handles redirects from the OAuth authorization flow.
+  After a user grants permissions to your app, Ziina will redirect
+  them back to this redirect_uri with an authorization code.
+*/
+app.get('/callback', async (req, res) => {
+  // This response has access_token field. Use it to call Ziina API
+  const response = await exchangeCodeForToken(req.query.code);
+
+  res.send("Success");
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+## Need help?
+
+If you have questions, visit our [help center](https://ziina.com/help-center) or contact us at [support@ziina.com](mailto:support@ziina.com).
+
+
+# Use cases
+Source: https://docs.ziina.com/developers/use-cases
+
+This page lists some of the most popular use cases so you get an idea of all the ways we can help you facilitate payments
+
+<Note>
+  Your users need to have an active Ziina wallet for you to perform actions on their behalf in your application
+</Note>
+
+## How can my users get paid to their Ziina wallets inside my app?
+
+1. Obtain a Bearer Authorization token for your user via the [OAuth 2.0 flow](/developers/oauth-2.0)
+2. Use this token to [create payment intent](/api-reference/payment-intent/create) on user's behalf
+3. The `payment intent` we provide in the response will include a `redirect_url` - the payment link for the payer
+4. Redirect the payer to the `redirect_url` to complete the transaction
+5. Optional: to add your service charge [transfer funds](/api-reference/transfer/create) to your business account
+
+## How can my users transfer money inside my app?
+
+1. Obtain a Bearer Authorization token for your user via the [OAuth 2.0 flow](/developers/oauth-2.0)
+2. Call the [transfer](/api-reference/transfer/create) endpoint
+
+## How can I automatically issue refunds in my application?
+
+1. You need to obtain the token either for [your business](https://ziina.com/business/connect) or for [your users](/developers/oauth-2.0), depending on who will be issuing refunds
+2. Call the [issue refund](/api-reference/refund/create) endpoint
+
+## How can I perform money disbursements in my app?
+
+1. You need to obtain the token for [your business](https://ziina.com/business/connect)
+2. You need to call the [transfer](/api-reference/transfer/create) endpoint with the accountIds (`to_account_ids`) or ziinames (`to_ziinames`) you want to send money to
+
+## What if a user doesn't have a Ziina account and tries to log in with Ziina in my app?
+
+Their account will be created automatically during the connection process. The account status will be set to `onboarding`, which means they will not be able to accept payments or transfer money until they download the Ziina app and complete onboarding.
+
+## Need help?
+
+If you have questions, visit our [help center](https://ziina.com/help-center) or contact us at [support@ziina.com](mailto:support@ziina.com).
+
+
+# Overview
+Source: https://docs.ziina.com/getting-started
+
+Explore Ziina’s developer-friendly payment API. Accept payments, integrate digital wallets, and customize checkout flows with easy guides and robust tools
+
+## Welcome to Ziina's API
+
+Ziina’s API makes payments easy, fast, and secure for businesses and developers. Whether you’re setting up an e-commerce store, building a custom checkout flow, or adding digital wallet functionality to your app, our guides take you through the process step by step.
+
+## What can you do with Ziina?
+
+* **Easily accept payments**: Connect Ziina to Shopify, WooCommerce, or other platforms to start receiving payments in minutes.
+* **Customize your checkout flow**: Use Ziina’s REST API to create a custom checkout flow that fits your business needs.
+* **Provide Ziina wallets to your users**: Integrate Ziina with [OAuth 2.0](/business/oauth-2.0) for your users to top up, request, and transfer funds from within your application.
+
+## Who is this for?
+
+* **Businesses**: Start with ready-to-go plugins for Shopify and WooCommerce—no technical expertise required.
+* **Developers**: Build, customize, and scale integrations with Ziina’s powerful API and OAuth support.
+
+## Get started in 3 steps
+
+1. **Sign up**: Create a Ziina Business account and complete onboarding.
+2. **Choose your integration**: Pick from Shopify, WooCommerce, or custom API options.
+3. **Set it up**: Follow our guides to go live and start accepting payments in minutes.
+
+## Explore integrations
+
+<CardGroup>
+  <Card title="Shopify" icon="shopify" href="/business/shopify">
+    Add Ziina to your Shopify store
+  </Card>
+
+  <Card title="WooCommerce" icon="wordpress" href="/business/woocommerce">
+    Add Ziina to your WooCommerce site
+  </Card>
+
+  <Card title="Other platforms" icon="link" href="/business/other-platforms">
+    Create a custom checkout flow using our REST APIs
+  </Card>
+
+  <Card title="OAuth 2.0" icon="code" href="/business/oauth-2.0">
+    Offer Ziina wallet functionality from within your application
+  </Card>
+</CardGroup>
+
+
+# Supported currencies
+Source: https://docs.ziina.com/supported-currencies
+
+Check supported currencies for Ziina’s payment gateway and wallet features — including AED, USD, and other major international currencies
+
+Ziina currently supports accepting payments in multiple currencies to allow customers to pay you in their native currency. Ziina will convert the payment to AED at the time of payment using real time currency exchange rates and settle into your wallet.
+
+# Selecting a currency
+
+You can charge your customers in any of our supported currencies by passing the currencies corresponding currency code when creating a Payment Intent. Amount values must be passed in the base units of their currency. For example, \$10.50 should be provided as `1050`.
+
+# Supported currencies
+
+The `*` indicates three-decimal currencies as described below.
+
+| Currency                    | Currency Code |
+| :-------------------------- | :------------ |
+| United Arab Emirates Dirham | AED           |
+| Bahrain Dinar \*            | BHD           |
+| Euro Member Countries       | EUR           |
+| United Kingdom Pound        | GBP           |
+| Indian Rupee                | INR           |
+| Kuwait Dinar \*             | KWD           |
+| Oman Rial \*                | OMR           |
+| Qatar Rial                  | QAR           |
+| Saudi Arabia Riyal          | SAR           |
+| United States Dollar        | USD           |
+
+# Three-decimal currencies
+
+Ziina supports three decimal currencies, such as BHD, KWD, and OMR. However, in order to ensure compatibility with our partners, amounts for these currencies need to be rounded to the nearest ten. For example, 1.234 OMR must be rounded to 1.230 or 1.240.
+
+
+# Test cards
+Source: https://docs.ziina.com/test-cards
+
+Test Cards for Payment Integration
+
+When you perform an integration with Ziina, you will need to test your integration. You can use the following test card numbers to simulate transactions.
+These cards will not trigger real payments and are only intended for development and testing purposes.
+Important Notes:
+
+* Any valid CVV format for the card type is accepted
+* Any future expiration date is valid
+* These test cards work only in [test mode](/api-reference/payment-intent/create#body-test) and will be declined in production
+
+| Card Brand | Card Number           | CVV Format | Notes                             |
+| ---------- | --------------------- | ---------- | --------------------------------- |
+| Visa       | `4242 4242 4242 4242` | 3 digits   | Most commonly used Visa test card |
+| Visa       | `4000 0000 0000 0002` | 3 digits   | Alternative Visa card             |
+| Mastercard | `5555 5555 5555 4444` | 3 digits   | Standard Mastercard test card     |
+| Mastercard | `5200 8282 8282 8210` | 3 digits   | Alternative Mastercard card       |
+| Amex       | `3782 822463 10005`   | 4 digits   | Standard Amex test card           |
+| Amex       | `3714 496353 98431`   | 4 digits   | Alternative Amex test card        |
+
+

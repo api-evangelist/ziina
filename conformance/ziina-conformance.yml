@@ -1,0 +1,46 @@
+generated: '2026-07-17'
+method: derived
+source:
+- openapi/ziina-openapi.yml
+- well-known/ziina-openid-configuration.json
+- security/ziina-trust-center.yml
+standards:
+- id: oauth2
+  conforms: true
+  evidence: Docs and live OIDC discovery expose an OAuth 2.0 authorization server
+    (auth.ziina.com/oidc) with authorization_code, refresh_token, and client_credentials grants.
+- id: oidc
+  conforms: true
+  evidence: Full OpenID Connect discovery document at
+    /oidc/.well-known/openid-configuration (issuer, jwks_uri, id_token_signing_alg PS256/RS256, claims_supported).
+- id: pkce-rfc7636
+  conforms: true
+  evidence: OIDC discovery advertises code_challenge_methods_supported [S256].
+- id: bearer-jwt-rfc6750
+  conforms: true
+  evidence: All API operations use HTTP bearer auth with JWT access tokens.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a custom { message, code } envelope (ErrorDto), not application/problem+json.
+- id: idempotency
+  conforms: true
+  evidence: Client-generated operation_id body field provides retry-safe idempotency on payment intents and transfers.
+- id: webhooks-hmac
+  conforms: true
+  evidence: Webhook payloads are signed with SHA-256 HMAC in the X-Hmac-Signature header when a secret is configured.
+- id: pci-dss
+  conforms: true
+  evidence: Cardholder data stored in PCI-DSS-certified storage via Very Good Security
+    and gateway partners (see security/ziina-trust-center.yml).
+- id: json-api
+  conforms: false
+- id: fhir-r4
+  conforms: false
+- id: scim2
+  conforms: false
+compliance_program:
+  published: true
+  ref: security/ziina-trust-center.yml
+  certifications: [PCI DSS]
+  regulatory:
+  - Central Bank of the UAE (CBUAE) Stored Value Facility (SVF) license 1112672 - Ziina Payment LLC

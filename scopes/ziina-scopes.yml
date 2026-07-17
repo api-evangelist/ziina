@@ -1,0 +1,65 @@
+generated: '2026-07-17'
+method: searched
+source: openapi/ziina-openapi.yml
+docs: https://docs.ziina.com/developers/oauth-2.0#available-scopes
+well_known: well-known/ziina-openid-configuration.json
+notes: >-
+  The published OpenAPI declares only an HTTP bearer (JWT) security scheme, so no
+  scopes are derivable from the spec alone. Ziina documents an OIDC-based OAuth
+  2.0 authorization server (auth.ziina.com/oidc); the scopes below are captured
+  verbatim from the docs' "Available scopes" reference and confirmed against the
+  live OIDC discovery document's scopes_supported list. Multiple scopes are
+  requested joined by a "+" sign. Tokens minted on the Ziina business connect
+  page (https://ziina.com/business/connect) carry all available scopes.
+schemes:
+- name: oauth2
+  type: oauth2
+  flow: authorizationCode
+  issuer: https://auth.ziina.com
+  authorizationUrl: https://auth.ziina.com/oidc/auth
+  tokenUrl: https://auth.ziina.com/oidc/token
+  grantTypes:
+  - authorization_code
+  - refresh_token
+  - client_credentials
+  - implicit
+  pkce: [S256]
+  sources:
+  - https://docs.ziina.com/developers/oauth-2.0
+  - well-known/ziina-openid-configuration.json
+scopes:
+- scope: read_account
+  description: Read the connected account profile (GET /account) - account_id, type, status, ziiname, display_name.
+  flows: [authorizationCode]
+- scope: write_payment_intents
+  description: Create payment intents and accept payments on the account's behalf.
+  flows: [authorizationCode]
+- scope: write_refunds
+  description: Create and fetch refunds against payment intents.
+  flows: [authorizationCode]
+- scope: write_transfers
+  description: Transfer money to other Ziina users.
+  flows: [authorizationCode]
+- scope: write_webhooks
+  description: Register and delete webhook endpoints.
+  flows: [authorizationCode]
+- scope: offline_access
+  description: Issue a refresh_token for long-lived access (requires prompt=consent on the authorization request).
+  flows: [authorizationCode]
+- scope: openid
+  description: OIDC base scope; returns an ID token identifying the end user.
+  flows: [authorizationCode]
+  source: well-known/ziina-openid-configuration.json
+oidc_extra_scopes_advertised:
+- profile
+- email
+- phone
+- address
+- write_pos_sessions
+- write_api_keys
+oidc_extra_note: >-
+  The live OIDC discovery scopes_supported and claims_supported also advertise
+  write_pos_sessions and write_api_keys (plus standard OIDC profile/email/phone/
+  address). These are not listed in the public developer scope reference and may
+  be reserved for first-party or POS integrations; documented here for
+  completeness.

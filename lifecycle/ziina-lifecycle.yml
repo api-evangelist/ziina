@@ -1,0 +1,35 @@
+generated: '2026-07-17'
+method: searched
+source:
+- openapi/ziina-openapi.yml
+- https://docs.ziina.com/developers/embedded-checkout
+versioning:
+  api:
+    scheme: uri-path
+    current: v2
+    host: https://api-v2.ziina.com/api
+  embedded_widget:
+    scheme: query-param
+    param: version
+    channels:
+      latest: Auto-updates; breaking changes may occur in the future.
+      v1: Stable; might be deprecated eventually.
+    docs: https://docs.ziina.com/developers/embedded-checkout
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No formal, dated deprecation policy or RFC 8594 Sunset/Deprecation header
+    support is published. The only deprecation signal is the embedded-widget
+    `version=v1` note that it "might be deprecated eventually."
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  note: >-
+    No public status page found (status.ziina.com does not resolve). The API
+    exposes an unauthenticated GET /status health-check endpoint
+    (HealthCheckController_getStatus) but there is no hosted status dashboard.
+health_check_endpoint: GET https://api-v2.ziina.com/api/status
+deprecated_operations: []

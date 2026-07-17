@@ -1,0 +1,113 @@
+# generated: '2026-07-17'
+# method: searched
+# source: https://docs.ziina.com/api-reference/webhook/index
+# spec_type: AsyncAPI
+# note: Ziina publishes no AsyncAPI document; this 3.0.0 spec is authored from the
+#   documented webhook catalog (2 events, HMAC signing, source-IP allowlist, retries).
+asyncapi: 3.0.0
+info:
+  title: Ziina Webhooks
+  version: 1.0.0
+  description: >-
+    Event surface for Ziina payment webhooks. When a webhook URL is registered
+    (POST /webhook), Ziina delivers events as HTTP POST callbacks over HTTPS to
+    that URL. Non-2xx responses are retried up to 3 times. If a shared secret was
+    configured, each delivery carries an X-Hmac-Signature header (hex-encoded
+    SHA-256 HMAC of the request body). Captured from
+    https://docs.ziina.com/api-reference/webhook/index on 2026-07-17.
+  contact:
+    name: Ziina Support
+    email: support@ziina.com
+    url: https://docs.ziina.com/api-reference/webhook
+defaultContentType: application/json
+servers:
+  subscriber:
+    host: your-server.example.com
+    protocol: https
+    description: >-
+      Merchant-hosted HTTPS endpoint registered via POST /webhook. Ziina delivers
+      from a fixed set of source IPs (3.29.184.186, 3.29.190.95, 20.233.47.127,
+      13.202.161.181); reject deliveries from any other IP.
+channels:
+  webhook:
+    address: /
+    description: The merchant webhook URL that receives all Ziina payment events.
+    messages:
+      paymentIntentStatusUpdated:
+        $ref: '#/components/messages/paymentIntentStatusUpdated'
+      refundStatusUpdated:
+        $ref: '#/components/messages/refundStatusUpdated'
+operations:
+  receivePaymentIntentStatusUpdated:
+    action: receive
+    channel:
+      $ref: '#/channels/webhook'
+    messages:
+    - $ref: '#/channels/webhook/messages/paymentIntentStatusUpdated'
+  receiveRefundStatusUpdated:
+    action: receive
+    channel:
+      $ref: '#/channels/webhook'
+    messages:
+    - $ref: '#/channels/webhook/messages/refundStatusUpdated'
+components:
+  messages:
+    paymentIntentStatusUpdated:
+      name: payment_intent.status.updated
+      title: Payment intent status updated
+      summary: A payment intent's status has changed.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          X-Hmac-Signature:
+            type: string
+            description: Hex-encoded SHA-256 HMAC of the request body (present when a secret is configured).
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: payment_intent.status.updated
+          data:
+            $ref: '#/components/schemas/PaymentIntentEventData'
+    refundStatusUpdated:
+      name: refund.status.updated
+      title: Refund status updated
+      summary: A refund's status has changed.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          X-Hmac-Signature:
+            type: string
+            description: Hex-encoded SHA-256 HMAC of the request body (present when a secret is configured).
+      payload:
+        type: object
+        properties:
+          event:
+            type: string
+            const: refund.status.updated
+          data:
+            $ref: '#/components/schemas/RefundEventData'
+  schemas:
+    PaymentIntentEventData:
+      type: object
+      description: Payment intent object (mirrors PaymentIntentDto in the REST API).
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum: [requires_payment_instrument, requires_user_action, pending, completed, failed, canceled]
+    RefundEventData:
+      type: object
+      description: Refund object (mirrors RefundDto in the REST API).
+      properties:
+        id:
+          type: string
+        payment_intent_id:
+          type: string
+        status:
+          type: string
+          enum: [pending, completed, failed]

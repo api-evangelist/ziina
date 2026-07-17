@@ -1,0 +1,20 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/ziina-openapi.yml
+skills:
+- file: ziina-accept-a-payment.md
+  name: Accept a payment with Ziina
+  api: openapi/ziina-openapi.yml
+  operations: [PaymentIntentController_createPaymentIntent, PaymentIntentController_getPaymentIntent]
+- file: ziina-issue-a-refund.md
+  name: Issue a refund with Ziina
+  api: openapi/ziina-openapi.yml
+  operations: [RefundController_initiateRefund, RefundController_getRefund]
+- file: ziina-transfer-money.md
+  name: Transfer money between Ziina accounts
+  api: openapi/ziina-openapi.yml
+  operations: [TransferController_initiateTransfer, TransferController_getTransfer]
+- file: ziina-register-webhook.md
+  name: Register a Ziina webhook
+  api: openapi/ziina-openapi.yml
+  operations: [WebhookController_createWebhook, WebhookController_deleteWebhook]

@@ -1,0 +1,58 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/ziina-openapi.yml
+entities:
+- name: PaymentIntent
+  schema: PaymentIntentDto
+  id_field: id
+  key_fields: [id, account_id, amount, currency_code, status, operation_id, redirect_url, embedded_url]
+  statuses: [requires_payment_instrument, requires_user_action, pending, completed, failed, canceled]
+- name: Refund
+  schema: RefundDto
+  id_field: id
+  key_fields: [id, payment_intent_id, amount, currency_code, status, created_at]
+  statuses: [pending, completed, failed]
+- name: Transfer
+  schema: TransferDto
+  id_field: id
+  key_fields: [id, account_id, amount, currency_code, status, operation_id]
+  statuses: [requires_payment_instrument, requires_user_action, pending, completed, failed, canceled]
+- name: Webhook
+  schema: SetWebhookRequestDto / WebhookResponseDto
+  id_field: null
+  key_fields: [url, secret]
+  note: One webhook URL per account; a new POST /webhook overwrites the previous URL.
+- name: Account
+  schema: AccountController_getAccount (inline)
+  id_field: account_id
+  key_fields: [account_id, account_type, status, ziiname, display_name, profile_picture_url]
+  statuses: [onboarding, active, locked, deleted, restrictedTransfer]
+- name: Error
+  schema: ErrorDto
+  key_fields: [message, code]
+relationships:
+- from: Refund
+  to: PaymentIntent
+  type: belongs_to
+  via: payment_intent_id
+- from: PaymentIntent
+  to: Account
+  type: belongs_to
+  via: account_id
+- from: Transfer
+  to: Account
+  type: belongs_to
+  via: account_id
+- from: PaymentIntent
+  to: Error
+  type: has_one
+  via: latest_error
+- from: Refund
+  to: Error
+  type: has_one
+  via: error
+notes: >-
+  Money amounts are minor units of currency_code (fils for AED). No id-prefix
+  scheme is documented; ids appear as opaque strings/UUIDs. Transfers are
+  addressed by to_account_ids or to_ziinames (Ziina usernames), not by a
+  first-class recipient entity in the response.

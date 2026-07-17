@@ -1,0 +1,50 @@
+arazzo: 1.0.1
+info:
+  title: Ziina - accept a payment and confirm
+  version: 1.0.0
+  description: >-
+    Create a payment intent, then poll it until the payment reaches a terminal
+    status. Seed inputs with test=true to run in Ziina test mode.
+sourceDescriptions:
+- name: ziina
+  url: ../openapi/ziina-openapi.yml
+  type: openapi
+workflows:
+- workflowId: accept-payment
+  summary: Create a payment intent and confirm its final status.
+  inputs:
+    type: object
+    properties:
+      amount:
+        type: number
+        description: Amount in minor units (fils for AED). Minimum 200 (=2 AED).
+      currency_code:
+        type: string
+        default: AED
+      test:
+        type: boolean
+        default: true
+    required: [amount, currency_code]
+  steps:
+  - stepId: create-payment-intent
+    operationId: PaymentIntentController_createPaymentIntent
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency_code: $inputs.currency_code
+        test: $inputs.test
+    outputs:
+      payment_intent_id: $response.body#/id
+      redirect_url: $response.body#/redirect_url
+  - stepId: get-payment-intent
+    operationId: PaymentIntentController_getPaymentIntent
+    parameters:
+    - name: id
+      in: path
+      value: $steps.create-payment-intent.outputs.payment_intent_id
+    outputs:
+      status: $response.body#/status
+  outputs:
+    payment_intent_id: $steps.create-payment-intent.outputs.payment_intent_id
+    status: $steps.get-payment-intent.outputs.status

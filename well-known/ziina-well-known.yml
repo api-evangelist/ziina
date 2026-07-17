@@ -1,0 +1,30 @@
+generated: '2026-07-17'
+method: searched
+source: live probes of Ziina hosts on 2026-07-17
+hosts:
+- host: https://auth.ziina.com
+  documents:
+  - path: /oidc/.well-known/openid-configuration
+    status: 200
+    file: ziina-openid-configuration.json
+    note: >-
+      Full OpenID Connect discovery document for Ziina's OIDC-based OAuth 2.0
+      authorization server. Advertises authorization_endpoint, token_endpoint,
+      jwks_uri, supported grant types (authorization_code, refresh_token,
+      client_credentials, implicit), PKCE (S256), and the scopes_supported list.
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+- host: https://api-v2.ziina.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+- host: https://ziina.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404

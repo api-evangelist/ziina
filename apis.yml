@@ -147,6 +147,62 @@ common:
   url: finops/ziina-finops.yml
 - url: https://ziina.com/blog
   type: Blog
+- type: OAuthScopes
+  url: scopes/ziina-scopes.yml
+- type: Conventions
+  url: conventions/ziina-conventions.yml
+- type: Idempotency
+  url: conventions/ziina-conventions.yml
+- type: ErrorCatalog
+  url: errors/ziina-problem-types.yml
+- type: Conformance
+  url: conformance/ziina-conformance.yml
+- type: Compliance
+  url: security/ziina-trust-center.yml
+- type: Lifecycle
+  url: lifecycle/ziina-lifecycle.yml
+- type: Sandbox
+  url: sandbox/ziina-sandbox.yml
+- type: DataModel
+  url: data-model/ziina-data-model.yml
+- type: Components
+  url: components/ziina-components.yml
+- type: WellKnown
+  url: well-known/ziina-well-known.yml
+- type: LLMsTxt
+  url: llms/ziina-llms.txt
+- type: MCPServer
+  url: mcp/ziina-mcp.yml
+- type: Overlay
+  url: overlays/ziina-openapi-overlay.yaml
+- type: AsyncAPI
+  url: asyncapi/ziina-webhooks-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/ziina-webhooks-asyncapi.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Accept a payment and confirm
+  url: arazzo/ziina-accept-payment.arazzo.yml
+- type: Arazzo
+  name: Refund a payment and confirm
+  url: arazzo/ziina-refund-payment.arazzo.yml
+- type: DeveloperPortal
+  url: https://docs.ziina.com
+- type: GettingStarted
+  url: https://docs.ziina.com/getting-started
+- type: APIReference
+  url: https://docs.ziina.com/api-reference/introduction
+- type: Support
+  url: https://ziina.com/help-center
+- type: Pricing
+  url: https://ziina.com/fees
+- type: SignUp
+  url: https://ziina.com/business/connect
+- type: TermsOfService
+  url: https://ziina.com/terms
+- type: PrivacyPolicy
+  url: https://ziina.com/privacy
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,52 @@
+generated: '2026-07-17'
+method: derived
+status: candidate
+source: openapi/ziina-openapi.yml
+server:
+  name: ziina
+  transport: http
+  url: null
+notes: >-
+  No official hosted or published Ziina MCP server was found (no entry in the MCP
+  registry, npm @modelcontextprotocol, or the Ziina docs). The tools below are a
+  candidate surface derived one-per-operation from the OpenAPI, intended as a
+  starting point for a community/first-party MCP server. Because Ziina moves real
+  money, write tools should be gated behind human-in-the-loop confirmation (see
+  agentic-access/ziina-agentic-access.yml).
+tools:
+- name: create_payment_intent
+  description: Create a payment intent (hosted/embedded checkout).
+  source_operation: openapi/ziina-openapi.yml#PaymentIntentController_createPaymentIntent
+  consequence: write
+- name: get_payment_intent
+  description: Retrieve a payment intent by id.
+  source_operation: openapi/ziina-openapi.yml#PaymentIntentController_getPaymentIntent
+  consequence: read
+- name: initiate_transfer
+  description: Transfer money between Ziina accounts.
+  source_operation: openapi/ziina-openapi.yml#TransferController_initiateTransfer
+  consequence: write
+- name: get_transfer
+  description: Retrieve a transfer by id.
+  source_operation: openapi/ziina-openapi.yml#TransferController_getTransfer
+  consequence: read
+- name: initiate_refund
+  description: Issue a full or partial refund against a payment intent.
+  source_operation: openapi/ziina-openapi.yml#RefundController_initiateRefund
+  consequence: write
+- name: get_refund
+  description: Retrieve a refund by id.
+  source_operation: openapi/ziina-openapi.yml#RefundController_getRefund
+  consequence: read
+- name: create_webhook
+  description: Register a webhook endpoint for payment events.
+  source_operation: openapi/ziina-openapi.yml#WebhookController_createWebhook
+  consequence: write
+- name: delete_webhook
+  description: Delete the registered webhook endpoint.
+  source_operation: openapi/ziina-openapi.yml#WebhookController_deleteWebhook
+  consequence: write
+- name: get_account
+  description: Retrieve the authenticated account profile.
+  source_operation: openapi/ziina-openapi.yml#AccountController_getAccount
+  consequence: read
