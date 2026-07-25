@@ -1,0 +1,219 @@
+openapi: 3.0.0
+info:
+  title: Ziina Account Transfer API
+  version: 1.0.0
+  description: Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).
+  contact:
+    name: Ziina Support
+    email: support@ziina.com
+    url: https://docs.ziina.com
+servers:
+- url: https://api-v2.ziina.com/api
+  description: Ziina production API
+security:
+- bearer: []
+tags:
+- name: Transfer
+  description: Initiate and retrieve peer transfers between Ziina accounts.
+paths:
+  /transfer:
+    post:
+      operationId: TransferController_initiateTransfer
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitiateTransferDto'
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentIntentDto'
+      tags:
+      - Transfer
+  /transfer/{id}:
+    get:
+      description: Get a transfer by its ID. Caller must be the payer or the receiver.
+      operationId: TransferController_getTransfer
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: id of the transfer
+        schema:
+          type: string
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferDto'
+      summary: ''
+      tags:
+      - Transfer
+components:
+  schemas:
+    TransferDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id of the transfer
+        account_id:
+          type: string
+          description: Account which will receive the transfer
+        amount:
+          type: number
+          description: Transaction amount. Values must be passed in the base units of their currency. For example, $10.50 should be provided as `1050`.
+        currency_code:
+          type: string
+          description: Currency code of the amount to charge. This should be a 3-letter ISO-4217 currency code. For example, if you wish to charge 10 AED, you should pass AED. For more information on supported currencies, please visit the [supported currencies page](/supported-currencies)
+        created_at:
+          type: string
+          description: Unix timestamp in milliseconds
+        status:
+          type: string
+          enum:
+          - requires_payment_instrument
+          - requires_user_action
+          - pending
+          - completed
+          - failed
+          - canceled
+          description: Status of the transaction. You can find more details [here](/api-reference/payment-intent/index#fetching-a-payment-intent)
+        operation_id:
+          type: string
+          description: Unique client generated UUID. In case of retries provide the same operation_id
+        message:
+          type: string
+          description: Optional text comment attached to a transfer. Displayed to the user in the app as part of the transaction details.
+      required:
+      - id
+      - account_id
+      - amount
+      - currency_code
+      - created_at
+      - status
+      - operation_id
+    ErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: HTTP error status code
+      required:
+      - message
+      - code
+    PaymentIntentDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id of the payment intent
+        account_id:
+          type: string
+          description: Account which will receive payment
+        amount:
+          type: number
+          description: Transaction amount. Values must be passed in the base units of their currency. For example, $10.50 should be provided as `1050`.
+        tip_amount:
+          type: number
+          description: The amount of tips to be added to the payment intent
+        fee_amount:
+          type: number
+          description: The amount of fees paid for this payment intent
+        currency_code:
+          type: string
+          description: Currency code of the amount to charge. This should be a 3-letter ISO-4217 currency code. For example, if you wish to charge 10 AED, you should pass AED. For more information on supported currencies, please visit the [supported currencies page](/supported-currencies)
+        created_at:
+          type: string
+          description: Unix timestamp in milliseconds
+        status:
+          type: string
+          enum:
+          - requires_payment_instrument
+          - requires_user_action
+          - pending
+          - completed
+          - failed
+          - canceled
+          description: Status of the transaction. You can find more details [here](/api-reference/payment-intent/index#fetching-a-payment-intent)
+        operation_id:
+          type: string
+          description: Unique client generated UUID. In case of retries provide the same operation_id
+        message:
+          type: string
+          description: A message to be displayed to the user on the hosted payment page
+        redirect_url:
+          type: string
+          description: The URL to be used to redirect the client to the hosted payment page
+        embedded_url:
+          type: string
+          description: The URL to be used to show embedded payment page with the payment widget
+        success_url:
+          type: string
+          description: The URL to be called by the hosted web page when the payment is successful
+        cancel_url:
+          type: string
+          description: The URL to be called by the hosted web page when the payment is cancelled
+        latest_error:
+          description: An error that was encountered while processing the payment intent
+          allOf:
+          - $ref: '#/components/schemas/ErrorDto'
+        allow_tips:
+          type: boolean
+          default: false
+          description: Whether tips are allowed for this payment intent
+      required:
+      - id
+      - account_id
+      - amount
+      - tip_amount
+      - currency_code
+      - created_at
+      - status
+      - operation_id
+    InitiateTransferDto:
+      type: object
+      properties:
+        operation_id:
+          type: string
+          description: Unique client generated UUID. In case of retries provide the same operation_id
+        to_account_ids:
+          description: 'Array of account ids to transfer to. You need to specify only one of the properties: to_account_ids or to_ziinames'
+          type: array
+          items:
+            type: string
+        to_ziinames:
+          description: 'Array of ziinames to transfer to. You need to specify only one of the properties: to_account_ids or to_ziinames'
+          type: array
+          items:
+            type: string
+        amount:
+          type: number
+          description: Transaction amount. Values must be passed in the base units of their currency. For example, $10.50 should be provided as `1050`.
+        currency_code:
+          type: string
+          description: Currency code of the amount to charge. This should be a 3-letter ISO-4217 currency code. For example, if you wish to charge 10 AED, you should pass AED. For more information on supported currencies, please visit the [supported currencies page](/supported-currencies)
+        message:
+          type: string
+          description: A message to be displayed to the user on the hosted payment page
+      required:
+      - operation_id
+      - to_account_ids
+      - to_ziinames
+      - amount
+      - currency_code
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http

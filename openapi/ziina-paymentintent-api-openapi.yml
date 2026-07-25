@@ -1,0 +1,182 @@
+openapi: 3.0.0
+info:
+  title: Ziina Account PaymentIntent API
+  version: 1.0.0
+  description: Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).
+  contact:
+    name: Ziina Support
+    email: support@ziina.com
+    url: https://docs.ziina.com
+servers:
+- url: https://api-v2.ziina.com/api
+  description: Ziina production API
+security:
+- bearer: []
+tags:
+- name: PaymentIntent
+  description: Create and retrieve payment intents (hosted/embedded checkout).
+paths:
+  /payment_intent/{id}:
+    get:
+      description: Get a payment intent by its ID
+      operationId: PaymentIntentController_getPaymentIntent
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: id of the payment intent
+        schema:
+          type: string
+      responses:
+        default:
+          description: Created payment intent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentIntentDto'
+      summary: ''
+      tags:
+      - PaymentIntent
+  /payment_intent:
+    post:
+      operationId: PaymentIntentController_createPaymentIntent
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentIntentDto'
+      responses:
+        default:
+          description: Created payment intent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentIntentDto'
+      tags:
+      - PaymentIntent
+components:
+  schemas:
+    ErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: HTTP error status code
+      required:
+      - message
+      - code
+    PaymentIntentDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id of the payment intent
+        account_id:
+          type: string
+          description: Account which will receive payment
+        amount:
+          type: number
+          description: Transaction amount. Values must be passed in the base units of their currency. For example, $10.50 should be provided as `1050`.
+        tip_amount:
+          type: number
+          description: The amount of tips to be added to the payment intent
+        fee_amount:
+          type: number
+          description: The amount of fees paid for this payment intent
+        currency_code:
+          type: string
+          description: Currency code of the amount to charge. This should be a 3-letter ISO-4217 currency code. For example, if you wish to charge 10 AED, you should pass AED. For more information on supported currencies, please visit the [supported currencies page](/supported-currencies)
+        created_at:
+          type: string
+          description: Unix timestamp in milliseconds
+        status:
+          type: string
+          enum:
+          - requires_payment_instrument
+          - requires_user_action
+          - pending
+          - completed
+          - failed
+          - canceled
+          description: Status of the transaction. You can find more details [here](/api-reference/payment-intent/index#fetching-a-payment-intent)
+        operation_id:
+          type: string
+          description: Unique client generated UUID. In case of retries provide the same operation_id
+        message:
+          type: string
+          description: A message to be displayed to the user on the hosted payment page
+        redirect_url:
+          type: string
+          description: The URL to be used to redirect the client to the hosted payment page
+        embedded_url:
+          type: string
+          description: The URL to be used to show embedded payment page with the payment widget
+        success_url:
+          type: string
+          description: The URL to be called by the hosted web page when the payment is successful
+        cancel_url:
+          type: string
+          description: The URL to be called by the hosted web page when the payment is cancelled
+        latest_error:
+          description: An error that was encountered while processing the payment intent
+          allOf:
+          - $ref: '#/components/schemas/ErrorDto'
+        allow_tips:
+          type: boolean
+          default: false
+          description: Whether tips are allowed for this payment intent
+      required:
+      - id
+      - account_id
+      - amount
+      - tip_amount
+      - currency_code
+      - created_at
+      - status
+      - operation_id
+    CreatePaymentIntentDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Transaction amount. Values must be passed in the base units of their currency. For example, $10.50 should be provided as `1050`.
+        currency_code:
+          type: string
+          description: Currency code of the amount to charge. This should be a 3-letter ISO-4217 currency code. For example, if you wish to charge 10 AED, you should pass AED. For more information on supported currencies, please visit the [supported currencies page](/supported-currencies)
+          minLength: 3
+          maxLength: 3
+        message:
+          type: string
+          description: A message to be displayed to the user on the hosted payment page
+        success_url:
+          type: string
+          description: The URL to be called by the hosted web page when the payment is successful
+        cancel_url:
+          type: string
+          description: The URL to be called by the hosted web page when the payment is cancelled
+        failure_url:
+          type: string
+          description: Url where user will be redirected after failed payment
+        test:
+          type: boolean
+          description: Whether to create a test payment. Test payments do not require a payment method and can be used to test the payment flow. You won't be charged for this call. You can use [test cards](/test-cards) to test the payment flow.
+        expiry:
+          type: string
+          description: Unix timestamp in milliseconds, must be a future date
+        allow_tips:
+          type: boolean
+          default: false
+          description: Whether to allow tips for this payment intent
+      required:
+      - amount
+      - currency_code
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http

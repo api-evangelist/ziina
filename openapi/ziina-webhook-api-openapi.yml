@@ -1,0 +1,78 @@
+openapi: 3.0.0
+info:
+  title: Ziina Account Webhook API
+  version: 1.0.0
+  description: Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).
+  contact:
+    name: Ziina Support
+    email: support@ziina.com
+    url: https://docs.ziina.com
+servers:
+- url: https://api-v2.ziina.com/api
+  description: Ziina production API
+security:
+- bearer: []
+tags:
+- name: Webhook
+  description: Register or delete a webhook endpoint for payment events.
+paths:
+  /webhook:
+    post:
+      operationId: WebhookController_createWebhook
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetWebhookRequestDto'
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponseDto'
+      tags:
+      - Webhook
+    delete:
+      operationId: WebhookController_deleteWebhook
+      parameters: []
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponseDto'
+      tags:
+      - Webhook
+components:
+  schemas:
+    WebhookResponseDto:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: true if request was successful, false otherwise
+        error:
+          type: string
+          description: Optional error message
+      required:
+      - success
+    SetWebhookRequestDto:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Url where webhooks will be sent
+        secret:
+          type: string
+          description: Optional. Provide your client secret if you want to verify the authenticity of the request using HMAC. This ensures the request hasn't been tampered with. You can generate your own secret and use it consistently for signing and verifying requests.
+      required:
+      - url
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http

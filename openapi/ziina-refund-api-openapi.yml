@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Ziina Account Refund API
+  version: 1.0.0
+  description: Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).
+  contact:
+    name: Ziina Support
+    email: support@ziina.com
+    url: https://docs.ziina.com
+servers:
+- url: https://api-v2.ziina.com/api
+  description: Ziina production API
+security:
+- bearer: []
+tags:
+- name: Refund
+  description: Issue and retrieve refunds against a payment intent.
+paths:
+  /refund:
+    post:
+      operationId: RefundController_initiateRefund
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitiateRefundDto'
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundDto'
+      tags:
+      - Refund
+  /refund/{id}:
+    get:
+      operationId: RefundController_getRefund
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: id of the refund
+        schema:
+          type: string
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundDto'
+      tags:
+      - Refund
+components:
+  schemas:
+    RefundDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the refund
+        payment_intent_id:
+          type: string
+          description: id of the payment intent
+        amount:
+          type: number
+          description: Transaction amount. Values must be passed in the base units of their currency. For example, $10.50 should be provided as `1050`.
+        currency_code:
+          type: string
+          description: Currency code of the amount to charge. This should be a 3-letter ISO-4217 currency code. For example, if you wish to charge 10 AED, you should pass AED. For more information on supported currencies, please visit the [supported currencies page](/supported-currencies)
+        status:
+          type: string
+          enum:
+          - pending
+          - completed
+          - failed
+        created_at:
+          type: string
+          description: Unix timestamp in milliseconds
+        error:
+          nullable: true
+          description: Optional error
+          allOf:
+          - $ref: '#/components/schemas/ErrorDto'
+      required:
+      - id
+      - payment_intent_id
+      - amount
+      - currency_code
+      - status
+      - created_at
+    ErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: HTTP error status code
+      required:
+      - message
+      - code
+    InitiateRefundDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unqiue client generated UUID of the refund
+        payment_intent_id:
+          type: string
+          description: id of the payment intent
+        amount:
+          type: number
+          description: Transaction amount. Values must be passed in the base units of their currency. For example, $10.50 should be provided as `1050`.
+        currency_code:
+          type: string
+          description: Currency code of the amount to charge. This should be a 3-letter ISO-4217 currency code. For example, if you wish to charge 10 AED, you should pass AED. For more information on supported currencies, please visit the [supported currencies page](/supported-currencies)
+        test:
+          type: boolean
+          description: Whether to create a test payment. Test payments do not require a payment method and can be used to test the payment flow. You won't be charged for this call. You can use [test cards](/test-cards) to test the payment flow.
+      required:
+      - id
+      - payment_intent_id
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http

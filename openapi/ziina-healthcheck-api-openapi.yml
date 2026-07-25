@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: Ziina Account HealthCheck API
+  version: 1.0.0
+  description: Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).
+  contact:
+    name: Ziina Support
+    email: support@ziina.com
+    url: https://docs.ziina.com
+servers:
+- url: https://api-v2.ziina.com/api
+  description: Ziina production API
+security:
+- bearer: []
+tags:
+- name: HealthCheck
+  description: Service status.
+paths:
+  /status:
+    get:
+      operationId: HealthCheckController_getStatus
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - HealthCheck
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http

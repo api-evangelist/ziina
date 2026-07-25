@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Ziina Account API
+  version: 1.0.0
+  description: Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).
+  contact:
+    name: Ziina Support
+    email: support@ziina.com
+    url: https://docs.ziina.com
+servers:
+- url: https://api-v2.ziina.com/api
+  description: Ziina production API
+security:
+- bearer: []
+tags:
+- name: Account
+  description: Retrieve the authenticated account profile.
+paths:
+  /account:
+    get:
+      summary: Retrieve account information
+      description: Fetch details about the account based on the provided Bearer token in the Authorization header.
+      responses:
+        default:
+          description: Successful response with account information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                    description: Unique identifier for the account
+                  account_type:
+                    type: string
+                    enum:
+                    - personal
+                    - business
+                    description: Type of the account
+                  status:
+                    type: string
+                    enum:
+                    - onboarding
+                    - active
+                    - locked
+                    - deleted
+                    - restrictedTransfer
+                    description: Current status of the account
+                  ziiname:
+                    type: string
+                    description: Ziina username associated with the account
+                  display_name:
+                    type: string
+                    description: Display name of the account holder
+                  profile_picture_url:
+                    type: string
+                    format: url
+                    description: URL of the profile picture
+              example:
+                account_id: <UUID>
+                account_type: personal
+                status: active
+                ziiname: ziina_user
+                display_name: John Doe
+                profile_picture_url: https://example.com/profile.jpg
+      tags:
+      - Account
+      operationId: AccountController_getAccount
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
