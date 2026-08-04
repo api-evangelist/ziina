@@ -1,0 +1,236 @@
+{
+  "info": {
+    "_postman_id": "9b0c30e7-6258-4685-90f3-73bfdf3d3a96",
+    "name": "Ziina Account Transfer API",
+    "description": "Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).\n\nContact Support:\n Name: Ziina Support\n Email: support@ziina.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:37:59.000Z",
+    "updatedAt": "2026-07-28T03:37:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9b0c30e7-6258-4685-90f3-73bfdf3d3a96"
+  },
+  "item": [
+    {
+      "name": "transfer",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Transfer Controller get Transfer",
+              "id": "5aa8f032-828e-4050-b28e-a27974c55f9f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transfer/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfer",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "521b0069-ea4d-4954-8a54-cbba0e1367c5",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) id of the transfer"
+                    }
+                  ]
+                },
+                "description": "Get a transfer by its ID. Caller must be the payer or the receiver."
+              },
+              "response": [
+                {
+                  "id": "b18552f1-579b-4ecf-814d-36a7aa796f1b",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfer/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfer",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"created_at\": \"<string>\",\n  \"status\": \"completed\",\n  \"operation_id\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:37:59.000Z",
+                  "updatedAt": "2026-07-28T03:37:59.000Z",
+                  "uid": "35240-b18552f1-579b-4ecf-814d-36a7aa796f1b"
+                }
+              ],
+              "createdAt": "2026-07-28T03:37:59.000Z",
+              "updatedAt": "2026-07-28T03:37:59.000Z",
+              "uid": "35240-5aa8f032-828e-4050-b28e-a27974c55f9f"
+            }
+          ],
+          "id": "fca2e86f-5644-457e-a5c0-1d671b4d3e04",
+          "createdAt": "2026-07-28T03:37:59.000Z",
+          "updatedAt": "2026-07-28T03:37:59.000Z",
+          "uid": "35240-fca2e86f-5644-457e-a5c0-1d671b4d3e04"
+        },
+        {
+          "name": "Transfer Controller initiate Transfer",
+          "id": "b4538cd6-5283-4cdd-ab45-a4c2cde9b2f7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation_id\": \"<string>\",\n  \"to_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to_ziinames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/transfer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transfer"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1223f40c-5cdd-4d17-960c-24069136a08f",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operation_id\": \"<string>\",\n  \"to_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to_ziinames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfer"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"tip_amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"created_at\": \"<string>\",\n  \"status\": \"completed\",\n  \"operation_id\": \"<string>\",\n  \"fee_amount\": \"<number>\",\n  \"message\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"embedded_url\": \"<string>\",\n  \"success_url\": \"<string>\",\n  \"cancel_url\": \"<string>\",\n  \"latest_error\": {\n    \"message\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"allow_tips\": false\n}",
+              "createdAt": "2026-07-28T03:37:59.000Z",
+              "updatedAt": "2026-07-28T03:37:59.000Z",
+              "uid": "35240-1223f40c-5cdd-4d17-960c-24069136a08f"
+            }
+          ],
+          "createdAt": "2026-07-28T03:37:59.000Z",
+          "updatedAt": "2026-07-28T03:37:59.000Z",
+          "uid": "35240-b4538cd6-5283-4cdd-ab45-a4c2cde9b2f7"
+        }
+      ],
+      "id": "bf5555ec-3aa3-4e16-8505-8ce49ee7e8e1",
+      "createdAt": "2026-07-28T03:37:59.000Z",
+      "updatedAt": "2026-07-28T03:37:59.000Z",
+      "uid": "35240-bf5555ec-3aa3-4e16-8505-8ce49ee7e8e1"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-v2.ziina.com/api"
+    }
+  ]
+}

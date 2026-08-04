@@ -1,0 +1,235 @@
+{
+  "info": {
+    "_postman_id": "9c4458b0-bb1a-4f75-a158-468d76d582c4",
+    "name": "Ziina Account Refund API",
+    "description": "Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).\n\nContact Support:\n Name: Ziina Support\n Email: support@ziina.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:37:58.000Z",
+    "updatedAt": "2026-07-28T03:37:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9c4458b0-bb1a-4f75-a158-468d76d582c4"
+  },
+  "item": [
+    {
+      "name": "refund",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Refund Controller get Refund",
+              "id": "23b08247-6084-46dc-8fb8-57dd7ca67242",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/refund/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "refund",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "90e1aa9d-7351-4ea3-99e7-0fb7d4389b7b",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) id of the refund"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "d33a8150-1206-4cbb-bd3c-1d67fb8a8e69",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/refund/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "refund",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"payment_intent_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"status\": \"pending\",\n  \"created_at\": \"<string>\",\n  \"error\": {\n    \"message\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:37:58.000Z",
+                  "updatedAt": "2026-07-28T03:37:58.000Z",
+                  "uid": "35240-d33a8150-1206-4cbb-bd3c-1d67fb8a8e69"
+                }
+              ],
+              "createdAt": "2026-07-28T03:37:58.000Z",
+              "updatedAt": "2026-07-28T03:37:58.000Z",
+              "uid": "35240-23b08247-6084-46dc-8fb8-57dd7ca67242"
+            }
+          ],
+          "id": "43895965-94a8-448a-9538-b9f2227082fc",
+          "createdAt": "2026-07-28T03:37:58.000Z",
+          "updatedAt": "2026-07-28T03:37:58.000Z",
+          "uid": "35240-43895965-94a8-448a-9538-b9f2227082fc"
+        },
+        {
+          "name": "Refund Controller initiate Refund",
+          "id": "ead2bc6a-43fa-49a5-9fdf-d69fcea20d73",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"payment_intent_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"test\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/refund",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "refund"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f3c5c753-4f76-44f8-ad66-35abd644c9f0",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"payment_intent_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"test\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/refund",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "refund"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"payment_intent_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"status\": \"pending\",\n  \"created_at\": \"<string>\",\n  \"error\": {\n    \"message\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:37:58.000Z",
+              "updatedAt": "2026-07-28T03:37:58.000Z",
+              "uid": "35240-f3c5c753-4f76-44f8-ad66-35abd644c9f0"
+            }
+          ],
+          "createdAt": "2026-07-28T03:37:58.000Z",
+          "updatedAt": "2026-07-28T03:37:58.000Z",
+          "uid": "35240-ead2bc6a-43fa-49a5-9fdf-d69fcea20d73"
+        }
+      ],
+      "id": "8da56ba4-9f0b-4d2a-9825-90104b1ce964",
+      "createdAt": "2026-07-28T03:37:58.000Z",
+      "updatedAt": "2026-07-28T03:37:58.000Z",
+      "uid": "35240-8da56ba4-9f0b-4d2a-9825-90104b1ce964"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-v2.ziina.com/api"
+    }
+  ]
+}

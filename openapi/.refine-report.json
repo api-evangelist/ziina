@@ -1,0 +1,26 @@
+{
+  "provider": "ziina",
+  "sources": [
+    "ziina-account-api-openapi.yml",
+    "ziina-healthcheck-api-openapi.yml",
+    "ziina-log-api-openapi.yml",
+    "ziina-paymentintent-api-openapi.yml",
+    "ziina-refund-api-openapi.yml",
+    "ziina-transfer-api-openapi.yml",
+    "ziina-webhook-api-openapi.yml"
+  ],
+  "outputs": [
+    "ziina-account-api-openapi.yml",
+    "ziina-healthcheck-api-openapi.yml",
+    "ziina-log-api-openapi.yml",
+    "ziina-paymentintent-api-openapi.yml",
+    "ziina-refund-api-openapi.yml",
+    "ziina-transfer-api-openapi.yml",
+    "ziina-webhook-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

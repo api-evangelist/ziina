@@ -1,0 +1,126 @@
+{
+  "info": {
+    "_postman_id": "d51eb7b1-fae6-4725-8e5d-a1a78b9b8919",
+    "name": "Ziina Account Log API",
+    "description": "Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).\n\nContact Support:\n Name: Ziina Support\n Email: support@ziina.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:37:56.000Z",
+    "updatedAt": "2026-07-28T03:37:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d51eb7b1-fae6-4725-8e5d-a1a78b9b8919"
+  },
+  "item": [
+    {
+      "name": "log",
+      "item": [
+        {
+          "name": "Log Controller process Log",
+          "id": "973f07c2-d81e-439a-bbda-f7da3c24011c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/log",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "log"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f29ae02e-5937-4671-af59-fc7559575f8c",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/log",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "log"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T03:37:57.000Z",
+              "updatedAt": "2026-07-28T03:37:57.000Z",
+              "uid": "35240-f29ae02e-5937-4671-af59-fc7559575f8c"
+            }
+          ],
+          "createdAt": "2026-07-28T03:37:57.000Z",
+          "updatedAt": "2026-07-28T03:37:57.000Z",
+          "uid": "35240-973f07c2-d81e-439a-bbda-f7da3c24011c"
+        }
+      ],
+      "id": "f1ee3ca5-ddcb-4694-9d50-97d656ba7c4f",
+      "createdAt": "2026-07-28T03:37:56.000Z",
+      "updatedAt": "2026-07-28T03:37:56.000Z",
+      "uid": "35240-f1ee3ca5-ddcb-4694-9d50-97d656ba7c4f"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-v2.ziina.com/api"
+    }
+  ]
+}

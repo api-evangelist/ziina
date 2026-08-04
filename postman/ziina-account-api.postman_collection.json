@@ -1,0 +1,112 @@
+{
+  "info": {
+    "_postman_id": "93c762d3-0d84-4299-bc37-d9f85614216b",
+    "name": "Ziina Account API",
+    "description": "Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).\n\nContact Support:\n Name: Ziina Support\n Email: support@ziina.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:37:54.000Z",
+    "updatedAt": "2026-07-28T03:37:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-93c762d3-0d84-4299-bc37-d9f85614216b"
+  },
+  "item": [
+    {
+      "name": "account",
+      "item": [
+        {
+          "name": "Retrieve account information",
+          "id": "4293d9fa-0c63-4d5c-844e-6ad41270b2ee",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/account",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account"
+              ]
+            },
+            "description": "Fetch details about the account based on the provided Bearer token in the Authorization header."
+          },
+          "response": [
+            {
+              "id": "b1a09b11-d36d-4581-8109-d6ce00487547",
+              "name": "Successful response with account information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/account",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "account"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"account_id\": \"<string>\",\n  \"account_type\": \"personal\",\n  \"status\": \"deleted\",\n  \"ziiname\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"profile_picture_url\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:37:55.000Z",
+              "updatedAt": "2026-07-28T03:37:55.000Z",
+              "uid": "35240-b1a09b11-d36d-4581-8109-d6ce00487547"
+            }
+          ],
+          "createdAt": "2026-07-28T03:37:55.000Z",
+          "updatedAt": "2026-07-28T03:37:55.000Z",
+          "uid": "35240-4293d9fa-0c63-4d5c-844e-6ad41270b2ee"
+        }
+      ],
+      "id": "5d669f60-8728-468c-864f-773e06d78bca",
+      "createdAt": "2026-07-28T03:37:55.000Z",
+      "updatedAt": "2026-07-28T03:37:55.000Z",
+      "uid": "35240-5d669f60-8728-468c-864f-773e06d78bca"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-v2.ziina.com/api"
+    }
+  ]
+}

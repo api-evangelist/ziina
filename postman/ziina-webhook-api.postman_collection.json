@@ -1,0 +1,211 @@
+{
+  "info": {
+    "_postman_id": "265dc3a8-2aaf-4ddd-bd48-5696b90e1fdd",
+    "name": "Ziina Account Webhook API",
+    "description": "Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).\n\nContact Support:\n Name: Ziina Support\n Email: support@ziina.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:38:19.000Z",
+    "updatedAt": "2026-07-28T03:38:19.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-265dc3a8-2aaf-4ddd-bd48-5696b90e1fdd"
+  },
+  "item": [
+    {
+      "name": "webhook",
+      "item": [
+        {
+          "name": "Webhook Controller create Webhook",
+          "id": "d94864a5-3f2a-4b65-b0c5-cb7b2f084831",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"secret\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhook",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhook"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c3ee1cd2-1c78-4322-9555-71f62ce23923",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\",\n  \"secret\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhook",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:38:19.000Z",
+              "updatedAt": "2026-07-28T03:38:19.000Z",
+              "uid": "35240-c3ee1cd2-1c78-4322-9555-71f62ce23923"
+            }
+          ],
+          "createdAt": "2026-07-28T03:38:19.000Z",
+          "updatedAt": "2026-07-28T03:38:19.000Z",
+          "uid": "35240-d94864a5-3f2a-4b65-b0c5-cb7b2f084831"
+        },
+        {
+          "name": "Webhook Controller delete Webhook",
+          "id": "7da37c6f-6448-4864-afb3-c53d653dc6ee",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhook",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhook"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5d5aa8ee-8555-440d-aedb-47efb4ea0117",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhook",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:38:19.000Z",
+              "updatedAt": "2026-07-28T03:38:19.000Z",
+              "uid": "35240-5d5aa8ee-8555-440d-aedb-47efb4ea0117"
+            }
+          ],
+          "createdAt": "2026-07-28T03:38:19.000Z",
+          "updatedAt": "2026-07-28T03:38:19.000Z",
+          "uid": "35240-7da37c6f-6448-4864-afb3-c53d653dc6ee"
+        }
+      ],
+      "id": "6cbc5d8e-631f-4a26-93c0-33cc15109bfc",
+      "createdAt": "2026-07-28T03:38:19.000Z",
+      "updatedAt": "2026-07-28T03:38:19.000Z",
+      "uid": "35240-6cbc5d8e-631f-4a26-93c0-33cc15109bfc"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-v2.ziina.com/api"
+    }
+  ]
+}

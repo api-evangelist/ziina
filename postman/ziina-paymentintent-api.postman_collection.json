@@ -1,0 +1,236 @@
+{
+  "info": {
+    "_postman_id": "86906a99-0b9e-449d-af6e-1e8faf1d3137",
+    "name": "Ziina Account PaymentIntent API",
+    "description": "Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).\n\nContact Support:\n Name: Ziina Support\n Email: support@ziina.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:37:57.000Z",
+    "updatedAt": "2026-07-28T03:37:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-86906a99-0b9e-449d-af6e-1e8faf1d3137"
+  },
+  "item": [
+    {
+      "name": "payment_intent",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Payment Intent Controller get Payment Intent",
+              "id": "926d69bf-a6e2-4f3b-a57f-13ae7b9a9de3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payment_intent/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payment_intent",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "806d74fe-c423-47bc-a0a4-25b8455ea21d",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) id of the payment intent"
+                    }
+                  ]
+                },
+                "description": "Get a payment intent by its ID"
+              },
+              "response": [
+                {
+                  "id": "78a6b6e4-ddc2-49b0-bab8-38fe0661a297",
+                  "name": "Created payment intent",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payment_intent/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payment_intent",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"tip_amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"created_at\": \"<string>\",\n  \"status\": \"canceled\",\n  \"operation_id\": \"<string>\",\n  \"fee_amount\": \"<number>\",\n  \"message\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"embedded_url\": \"<string>\",\n  \"success_url\": \"<string>\",\n  \"cancel_url\": \"<string>\",\n  \"latest_error\": {\n    \"message\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"allow_tips\": false\n}",
+                  "createdAt": "2026-07-28T03:37:58.000Z",
+                  "updatedAt": "2026-07-28T03:37:58.000Z",
+                  "uid": "35240-78a6b6e4-ddc2-49b0-bab8-38fe0661a297"
+                }
+              ],
+              "createdAt": "2026-07-28T03:37:57.000Z",
+              "updatedAt": "2026-07-28T03:37:57.000Z",
+              "uid": "35240-926d69bf-a6e2-4f3b-a57f-13ae7b9a9de3"
+            }
+          ],
+          "id": "29ef2592-b024-415c-8717-338eb003ba68",
+          "createdAt": "2026-07-28T03:37:57.000Z",
+          "updatedAt": "2026-07-28T03:37:57.000Z",
+          "uid": "35240-29ef2592-b024-415c-8717-338eb003ba68"
+        },
+        {
+          "name": "Payment Intent Controller create Payment Intent",
+          "id": "4a82d22e-dbf3-49fa-9451-7b5700c86422",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"success_url\": \"<string>\",\n  \"cancel_url\": \"<string>\",\n  \"failure_url\": \"<string>\",\n  \"test\": \"<boolean>\",\n  \"expiry\": \"<string>\",\n  \"allow_tips\": false\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payment_intent",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payment_intent"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f263d702-18a6-4bb6-8e9b-bd72f4bd423b",
+              "name": "Created payment intent",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"success_url\": \"<string>\",\n  \"cancel_url\": \"<string>\",\n  \"failure_url\": \"<string>\",\n  \"test\": \"<boolean>\",\n  \"expiry\": \"<string>\",\n  \"allow_tips\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payment_intent",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payment_intent"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"tip_amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"created_at\": \"<string>\",\n  \"status\": \"canceled\",\n  \"operation_id\": \"<string>\",\n  \"fee_amount\": \"<number>\",\n  \"message\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"embedded_url\": \"<string>\",\n  \"success_url\": \"<string>\",\n  \"cancel_url\": \"<string>\",\n  \"latest_error\": {\n    \"message\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"allow_tips\": false\n}",
+              "createdAt": "2026-07-28T03:37:58.000Z",
+              "updatedAt": "2026-07-28T03:37:58.000Z",
+              "uid": "35240-f263d702-18a6-4bb6-8e9b-bd72f4bd423b"
+            }
+          ],
+          "createdAt": "2026-07-28T03:37:57.000Z",
+          "updatedAt": "2026-07-28T03:37:57.000Z",
+          "uid": "35240-4a82d22e-dbf3-49fa-9451-7b5700c86422"
+        }
+      ],
+      "id": "d9aeee67-2381-4c15-8e63-5457669dbdd8",
+      "createdAt": "2026-07-28T03:37:57.000Z",
+      "updatedAt": "2026-07-28T03:37:57.000Z",
+      "uid": "35240-d9aeee67-2381-4c15-8e63-5457669dbdd8"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-v2.ziina.com/api"
+    }
+  ]
+}

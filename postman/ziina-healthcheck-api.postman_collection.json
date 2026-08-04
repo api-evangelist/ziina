@@ -1,0 +1,97 @@
+{
+  "info": {
+    "_postman_id": "96b07d03-27dc-4890-9f27-ee088908d6c3",
+    "name": "Ziina Account HealthCheck API",
+    "description": "Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).\n\nContact Support:\n Name: Ziina Support\n Email: support@ziina.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:37:55.000Z",
+    "updatedAt": "2026-07-28T03:37:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-96b07d03-27dc-4890-9f27-ee088908d6c3"
+  },
+  "item": [
+    {
+      "name": "status",
+      "item": [
+        {
+          "name": "Health Check Controller get Status",
+          "id": "a98077d7-c5df-4a6f-b769-91f06a21577e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "status"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0b63f661-f4c6-47c8-85db-58893ef5f701",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/status",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "status"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T03:37:56.000Z",
+              "updatedAt": "2026-07-28T03:37:56.000Z",
+              "uid": "35240-0b63f661-f4c6-47c8-85db-58893ef5f701"
+            }
+          ],
+          "createdAt": "2026-07-28T03:37:56.000Z",
+          "updatedAt": "2026-07-28T03:37:56.000Z",
+          "uid": "35240-a98077d7-c5df-4a6f-b769-91f06a21577e"
+        }
+      ],
+      "id": "14cdb9d0-1509-439f-8c0c-a7f87dee2132",
+      "createdAt": "2026-07-28T03:37:56.000Z",
+      "updatedAt": "2026-07-28T03:37:56.000Z",
+      "uid": "35240-14cdb9d0-1509-439f-8c0c-a7f87dee2132"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-v2.ziina.com/api"
+    }
+  ]
+}
