@@ -1,0 +1,233 @@
+{
+  "item": [
+    {
+      "id": "3a6294e5-b38f-449b-9110-95cab6a359fb",
+      "name": "PaymentIntent",
+      "description": {
+        "content": "Create and retrieve payment intents (hosted/embedded checkout).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2083252d-83a4-45c6-aef2-1460284e61e4",
+          "name": "Payment Intent Controller get Payment Intent",
+          "request": {
+            "name": "Payment Intent Controller get Payment Intent",
+            "description": {
+              "content": "Get a payment intent by its ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_intent",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id of the payment intent"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9766a3d7-159f-45eb-b1b8-6e1d750ac87a",
+              "name": "Created payment intent",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_intent",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id of the payment intent"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"account_id\": \"string\",\n  \"amount\": 1269.9872657869294,\n  \"tip_amount\": 1011.1801753942029,\n  \"currency_code\": \"string\",\n  \"created_at\": \"string\",\n  \"status\": \"requires_user_action\",\n  \"operation_id\": \"string\",\n  \"fee_amount\": 3432.0303022126295,\n  \"message\": \"string\",\n  \"redirect_url\": \"string\",\n  \"embedded_url\": \"string\",\n  \"success_url\": \"string\",\n  \"cancel_url\": \"string\",\n  \"latest_error\": {\n    \"message\": \"string\",\n    \"code\": \"string\"\n  },\n  \"allow_tips\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bc653d8-91fc-4b62-ba9c-47d7fd072168",
+          "name": "Payment Intent Controller create Payment Intent",
+          "request": {
+            "name": "Payment Intent Controller create Payment Intent",
+            "description": {},
+            "url": {
+              "path": [
+                "payment_intent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"success_url\": \"<string>\",\n  \"cancel_url\": \"<string>\",\n  \"failure_url\": \"<string>\",\n  \"test\": \"<boolean>\",\n  \"expiry\": \"<string>\",\n  \"allow_tips\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "44c83cc2-71f9-4dbe-848a-5bdf711e155b",
+              "name": "Created payment intent",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_intent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"success_url\": \"<string>\",\n  \"cancel_url\": \"<string>\",\n  \"failure_url\": \"<string>\",\n  \"test\": \"<boolean>\",\n  \"expiry\": \"<string>\",\n  \"allow_tips\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"account_id\": \"string\",\n  \"amount\": 1269.9872657869294,\n  \"tip_amount\": 1011.1801753942029,\n  \"currency_code\": \"string\",\n  \"created_at\": \"string\",\n  \"status\": \"requires_user_action\",\n  \"operation_id\": \"string\",\n  \"fee_amount\": 3432.0303022126295,\n  \"message\": \"string\",\n  \"redirect_url\": \"string\",\n  \"embedded_url\": \"string\",\n  \"success_url\": \"string\",\n  \"cancel_url\": \"string\",\n  \"latest_error\": {\n    \"message\": \"string\",\n    \"code\": \"string\"\n  },\n  \"allow_tips\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-v2.ziina.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a9d45476-c171-4ee9-b0cf-b14354ebb8ec",
+    "name": "Ziina Account PaymentIntent API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).\n\nContact Support:\n Name: Ziina Support\n Email: support@ziina.com",
+      "type": "text/plain"
+    }
+  }
+}

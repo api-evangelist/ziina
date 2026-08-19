@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ziina Account Webhook API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhook",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WebhookController_createWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-v2.ziina.com/api/webhook",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "WebhookController_deleteWebhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api-v2.ziina.com/api/webhook"
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -6,13 +6,10 @@ server:
   name: ziina
   transport: http
   url: null
-notes: >-
-  No official hosted or published Ziina MCP server was found (no entry in the MCP
-  registry, npm @modelcontextprotocol, or the Ziina docs). The tools below are a
-  candidate surface derived one-per-operation from the OpenAPI, intended as a
-  starting point for a community/first-party MCP server. Because Ziina moves real
-  money, write tools should be gated behind human-in-the-loop confirmation (see
-  agentic-access/ziina-agentic-access.yml).
+notes: No official hosted or published Ziina MCP server was found (no entry in the MCP registry, npm @modelcontextprotocol,
+  or the Ziina docs). The tools below are a candidate surface derived one-per-operation from the OpenAPI,
+  intended as a starting point for a community/first-party MCP server. Because Ziina moves real money,
+  write tools should be gated behind human-in-the-loop confirmation (see agentic-access/ziina-agentic-access.yml).
 tools:
 - name: create_payment_intent
   description: Create a payment intent (hosted/embedded checkout).
@@ -50,3 +47,9 @@ tools:
   description: Retrieve the authenticated account profile.
   source_operation: openapi/ziina-openapi.yml#AccountController_getAccount
   consequence: read
+deployment:
+  mode: none
+  verified: derived
+  tools: 9
+  checked: '2026-08-12'
+  source: catalog MCP census

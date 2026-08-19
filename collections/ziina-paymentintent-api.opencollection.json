@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ziina Account PaymentIntent API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PaymentIntent",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "PaymentIntentController_getPaymentIntent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-v2.ziina.com/api/payment_intent/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the payment intent"
+              }
+            ]
+          },
+          "docs": "Get a payment intent by its ID"
+        },
+        {
+          "info": {
+            "name": "PaymentIntentController_createPaymentIntent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-v2.ziina.com/api/payment_intent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

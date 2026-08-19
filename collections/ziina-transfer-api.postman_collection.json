@@ -1,0 +1,231 @@
+{
+  "item": [
+    {
+      "id": "83120119-e410-42de-b1d1-b14291d5f064",
+      "name": "Transfer",
+      "description": {
+        "content": "Initiate and retrieve peer transfers between Ziina accounts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "62fa7069-05f3-44d1-81e8-404a187f8537",
+          "name": "Transfer Controller initiate Transfer",
+          "request": {
+            "name": "Transfer Controller initiate Transfer",
+            "description": {},
+            "url": {
+              "path": [
+                "transfer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation_id\": \"<string>\",\n  \"to_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to_ziinames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "63d162e2-1966-46b2-b6ec-cadbdf044c73",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operation_id\": \"<string>\",\n  \"to_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to_ziinames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"amount\": \"<number>\",\n  \"currency_code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"account_id\": \"string\",\n  \"amount\": 3414.5596143354883,\n  \"tip_amount\": 3476.125365374414,\n  \"currency_code\": \"string\",\n  \"created_at\": \"string\",\n  \"status\": \"completed\",\n  \"operation_id\": \"string\",\n  \"fee_amount\": 3875.719661015056,\n  \"message\": \"string\",\n  \"redirect_url\": \"string\",\n  \"embedded_url\": \"string\",\n  \"success_url\": \"string\",\n  \"cancel_url\": \"string\",\n  \"latest_error\": {\n    \"message\": \"string\",\n    \"code\": \"string\"\n  },\n  \"allow_tips\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db3147d4-cc8b-4841-8179-7855dfdf16a3",
+          "name": "Transfer Controller get Transfer",
+          "request": {
+            "name": "Transfer Controller get Transfer",
+            "description": {
+              "content": "Get a transfer by its ID. Caller must be the payer or the receiver.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfer",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id of the transfer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e116ee9-557d-438e-8f9c-6cd664951b16",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfer",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id of the transfer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"account_id\": \"string\",\n  \"amount\": 5791.681671133594,\n  \"currency_code\": \"string\",\n  \"created_at\": \"string\",\n  \"status\": \"canceled\",\n  \"operation_id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-v2.ziina.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "947d60f0-3674-48a4-8784-af1923bcf20f",
+    "name": "Ziina Account Transfer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).\n\nContact Support:\n Name: Ziina Support\n Email: support@ziina.com",
+      "type": "text/plain"
+    }
+  }
+}
