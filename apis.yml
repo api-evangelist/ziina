@@ -28,6 +28,13 @@ tags:
 - UAE
 - MENA
 - Money Transfer
+- Wallets
+tags_raw:
+- Payments
+- Fintech
+- UAE
+- MENA
+- Money Transfer
 - Wallet
 created: '2026-07-17'
 modified: '2026-07-17'
@@ -69,6 +76,8 @@ apis:
   humanURL: https://docs.ziina.com/api-reference/payment-intent
   baseURL: https://api-v2.ziina.com/api
   tags:
+  - Health Check
+  tags_raw:
   - HealthCheck
   properties:
   - type: OpenAPI
