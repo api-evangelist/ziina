@@ -6,8 +6,8 @@ info:
     Create a payment intent, then poll it until the payment reaches a terminal
     status. Seed inputs with test=true to run in Ziina test mode.
 sourceDescriptions:
-- name: ziina
-  url: ../openapi/ziina-openapi.yml
+- name: paymentintentApi
+  url: ../openapi/ziina-paymentintent-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: accept-payment

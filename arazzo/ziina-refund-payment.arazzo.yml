@@ -6,8 +6,8 @@ info:
     Issue a refund against an existing payment intent, then poll the refund until
     it reaches a terminal status.
 sourceDescriptions:
-- name: ziina
-  url: ../openapi/ziina-openapi.yml
+- name: refundApi
+  url: ../openapi/ziina-refund-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: refund-payment
