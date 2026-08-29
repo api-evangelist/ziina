@@ -8,6 +8,18 @@ description: Ziina is a Dubai-based (UAE) fintech offering an instant money and 
   and register webhooks. Amounts are in the currency's minor unit (fils for AED),
   auth is HTTP bearer (JWT) via OAuth 2.0 scopes, and settlement is in AED with multi-currency
   acceptance.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
