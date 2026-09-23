@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Ziina Account Webhook API
+  title: Ziina Webhook API
   version: 1.0.0
-  description: Ziina payment platform REST API for the UAE. Create and retrieve payment intents (hosted and embedded checkout), issue refunds, initiate peer transfers between Ziina accounts, register webhook endpoints for payment events, and read account details. Amounts are passed in the base (minor) unit of the currency (fils for AED); the minimum charge is 2 AED. Auth is HTTP bearer (JWT) via OAuth 2.0 access tokens with granular scopes (read_account, write_payment_intents, write_refunds, write_transfers, write_webhooks).
+  description: Ziina payment platform REST API for the UAE.
   contact:
     name: Ziina Support
     email: support@ziina.com
@@ -35,6 +35,8 @@ paths:
                 $ref: '#/components/schemas/WebhookResponseDto'
       tags:
       - Webhook
+      summary: Webhook controller create webhook
+      x-summary-source: derived
     delete:
       operationId: WebhookController_deleteWebhook
       parameters: []
@@ -47,6 +49,8 @@ paths:
                 $ref: '#/components/schemas/WebhookResponseDto'
       tags:
       - Webhook
+      summary: Webhook controller delete webhook
+      x-summary-source: derived
 components:
   schemas:
     WebhookResponseDto:

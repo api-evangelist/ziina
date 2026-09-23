@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Ziina Log API
+  title: Ziina Health Check API
   version: 1.0.0
   description: Ziina payment platform REST API for the UAE.
   contact:
@@ -13,30 +13,21 @@ servers:
 security:
 - bearer: []
 tags:
-- name: Log
+- name: Health Check
+  description: Service status.
 paths:
-  /log:
-    post:
-      operationId: LogController_processLog
+  /status:
+    get:
+      operationId: HealthCheckController_getStatus
       parameters: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LogDto'
       responses:
-        '201':
+        '200':
           description: ''
       tags:
-      - Log
-      summary: Log controller process log
+      - Health Check
+      summary: Health check controller get status
       x-summary-source: derived
 components:
-  schemas:
-    LogDto:
-      type: object
-      properties: {}
   securitySchemes:
     bearer:
       scheme: bearer
