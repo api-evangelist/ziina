@@ -60,18 +60,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ErrorDto:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: HTTP error status code
-      required:
-      - message
-      - code
     RefundDto:
       type: object
       properties:
@@ -128,6 +116,18 @@ components:
       required:
       - id
       - payment_intent_id
+    ErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: HTTP error status code
+      required:
+      - message
+      - code
   securitySchemes:
     bearer:
       scheme: bearer
