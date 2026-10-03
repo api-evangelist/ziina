@@ -130,18 +130,6 @@ components:
       - created_at
       - status
       - operation_id
-    ErrorDto:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: HTTP error status code
-      required:
-      - message
-      - code
     TransferDto:
       type: object
       properties:
@@ -184,6 +172,18 @@ components:
       - created_at
       - status
       - operation_id
+    ErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: HTTP error status code
+      required:
+      - message
+      - code
     InitiateTransferDto:
       type: object
       properties:

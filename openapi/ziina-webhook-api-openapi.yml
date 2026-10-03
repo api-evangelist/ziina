@@ -53,17 +53,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    WebhookResponseDto:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: true if request was successful, false otherwise
-        error:
-          type: string
-          description: Optional error message
-      required:
-      - success
     SetWebhookRequestDto:
       type: object
       properties:
@@ -75,6 +64,17 @@ components:
           description: Optional. Provide your client secret if you want to verify the authenticity of the request using HMAC. This ensures the request hasn't been tampered with. You can generate your own secret and use it consistently for signing and verifying requests.
       required:
       - url
+    WebhookResponseDto:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: true if request was successful, false otherwise
+        error:
+          type: string
+          description: Optional error message
+      required:
+      - success
   securitySchemes:
     bearer:
       scheme: bearer
