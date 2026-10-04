@@ -263,6 +263,9 @@ apis:
   - type: Documentation
     url: https://docs.ziina.com/api-reference/account/get
 common:
+- type: CapabilityMap
+  url: capabilities/ziina-capability-edges.yml
+  name: Ziina Business Capability Map
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/ziina/overview
 - type: AgenticAccess
