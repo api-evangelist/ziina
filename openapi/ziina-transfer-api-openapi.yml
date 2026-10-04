@@ -61,6 +61,37 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    InitiateTransferDto:
+      type: object
+      properties:
+        operation_id:
+          type: string
+          description: Unique client generated UUID. In case of retries provide the same operation_id
+        to_account_ids:
+          description: 'Array of account ids to transfer to. You need to specify only one of the properties: to_account_ids or to_ziinames'
+          type: array
+          items:
+            type: string
+        to_ziinames:
+          description: 'Array of ziinames to transfer to. You need to specify only one of the properties: to_account_ids or to_ziinames'
+          type: array
+          items:
+            type: string
+        amount:
+          type: number
+          description: Transaction amount. Values must be passed in the base units of their currency. For example, $10.50 should be provided as `1050`.
+        currency_code:
+          type: string
+          description: Currency code of the amount to charge. This should be a 3-letter ISO-4217 currency code. For example, if you wish to charge 10 AED, you should pass AED. For more information on supported currencies, please visit the [supported currencies page](/supported-currencies)
+        message:
+          type: string
+          description: A message to be displayed to the user on the hosted payment page
+      required:
+      - operation_id
+      - to_account_ids
+      - to_ziinames
+      - amount
+      - currency_code
     PaymentIntentDto:
       type: object
       properties:
@@ -184,37 +215,6 @@ components:
       required:
       - message
       - code
-    InitiateTransferDto:
-      type: object
-      properties:
-        operation_id:
-          type: string
-          description: Unique client generated UUID. In case of retries provide the same operation_id
-        to_account_ids:
-          description: 'Array of account ids to transfer to. You need to specify only one of the properties: to_account_ids or to_ziinames'
-          type: array
-          items:
-            type: string
-        to_ziinames:
-          description: 'Array of ziinames to transfer to. You need to specify only one of the properties: to_account_ids or to_ziinames'
-          type: array
-          items:
-            type: string
-        amount:
-          type: number
-          description: Transaction amount. Values must be passed in the base units of their currency. For example, $10.50 should be provided as `1050`.
-        currency_code:
-          type: string
-          description: Currency code of the amount to charge. This should be a 3-letter ISO-4217 currency code. For example, if you wish to charge 10 AED, you should pass AED. For more information on supported currencies, please visit the [supported currencies page](/supported-currencies)
-        message:
-          type: string
-          description: A message to be displayed to the user on the hosted payment page
-      required:
-      - operation_id
-      - to_account_ids
-      - to_ziinames
-      - amount
-      - currency_code
   securitySchemes:
     bearer:
       scheme: bearer

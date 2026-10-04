@@ -130,6 +130,18 @@ components:
       - created_at
       - status
       - operation_id
+    ErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: HTTP error status code
+      required:
+      - message
+      - code
     CreatePaymentIntentDto:
       type: object
       properties:
@@ -166,18 +178,6 @@ components:
       required:
       - amount
       - currency_code
-    ErrorDto:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: HTTP error status code
-      required:
-      - message
-      - code
   securitySchemes:
     bearer:
       scheme: bearer
