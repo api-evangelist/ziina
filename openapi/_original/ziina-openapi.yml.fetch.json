@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.ziina.com/api-reference/payment-service-openapi.json",
+ "requested_url": "https://docs.ziina.com/api-reference/payment-service-openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 24190,
+ "sha256": "9f7cefa0a4115b998a4368ebc566da3bdee7a40e213007fc301fe4a28e0c2fd6",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.909), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
